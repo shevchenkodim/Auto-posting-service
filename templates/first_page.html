@@ -14,27 +14,21 @@
     <title>Carousel Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{% static "css/carousel.css" %}" />
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="carousel.css" rel="stylesheet">
+    <link href="{% static "css/carousel.css" %}" rel="stylesheet">
   </head>
   <body>
 
     <nav class="navbar navbar-static-top navbar-light bg-faded">
-      <a href="#" class="navbar-brand">Carousel</a>
+      <a href="#" class="navbar-brand">Auto posting</a>
       <ul class="nav navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Регистрация<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="#">Вход</a>
         </li>
       </ul>
     </nav>
@@ -51,32 +45,32 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
-          <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+          <img class="first-slide" src="{% static 'images/first_page/test3.png' %}" alt="First slide">
           <div class="container">
             <div class="carousel-caption text-xs-left">
-              <h1>Example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              <h1>Всё настраивается!</h1>
+              <p>Используйте богатые возможности сервиса Auto posting, чтобы сервис подстроился под Ваши задачи и цели.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up now</a></p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+          <img class="second-slide" src="{% static 'images/first_page/test2.png' %}" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+              <h1>Гибкое расписание публикаций</h1>
+              <p>Задайте свое расписание для каждого дня недели, либо одно расписание на всю неделю.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up now</a></p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+          <img class="third-slide" src="{% static 'images/first_page/test1.png' %}" alt="Third slide">
           <div class="container">
             <div class="carousel-caption text-xs-right">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              <h1>Попробуйте сервис в деле!</h1>
+              <p>Наши услуги полностью бесплатны, и ты можешь пользоваться всем функционалом который только есть.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up now</a></p>
             </div>
           </div>
         </div>
@@ -101,22 +95,23 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          <img class="img-circle" src="{% static 'images/first_page/Telegram.png' %}" alt="Generic placeholder image" width="140" height="140">
+          <h2>Telegram</h2>
+          <hr>
+          <p>Telegram – это бесплатный мессенджер, с помощью которого можно общаться с другими пользователями, обмениваться файлами разных форматов и разных размеров.Все больше компаний продвигают свой бизнес в интернете. Создаются сайты, идет работа в социальных сетях, на форумах. Мессенджеры не стали исключением. Бизнес в Telegram получил дополнительные возможности для общения с потребителями.</p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-          <h2>Heading</h2>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          <img class="img-circle" src="{% static 'images/first_page/Facebook.png' %}" alt="Generic placeholder image" width="140" height="140">
+          <h2>Facebook</h2>
+          <hr>
+          <p>Facebook – это социальная сеть для общения, а также бизнес-инструмент для привлечения клиентов.Фейсбук позволяет расширить горизонты для бизнеса, создать полезные профессиональные связи, завести приятную беседу, поделиться мнением по обсуждаемому вопросу. В рамках страниц и профилей тем для обсуждения бесконечное множество. И это лишь часть той внутренней профессиональной свободы, которую даёт Фейсбук.</p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          <img class="img-circle" src="{% static 'images/first_page/Question.png' %}" alt="Generic placeholder image" width="140" height="140">
+          <h2>Что дальше?</h2>
+          <hr>
+          <p>Наш проект не будет стоять на месте и ето радует! Вскоре в нашем сервисе будут появляться новые социальные сети в которые можно будет делать автопостинг. А именно: Instagram, Twitter, Linkedln.
+          Наша команда разработчиков плодотворно работает над разработкой и улучшением инструмента, так как мы нацелены на качество и доверие.</p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -125,13 +120,13 @@
 
       <hr class="featurette-divider">
 
-      <div class="row featurette">
+      <div class="row featurette" >
         <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Отложенная публикация.</h2>
+          <p class="lead">Создайте запись, и сервис опубликует ее во все выбрание социальные сети - сразу же или в указанное Вами время.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid m-x-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-fluid m-x-auto" src="{% static 'images/first_page/1.png' %}" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -139,11 +134,11 @@
 
       <div class="row featurette">
         <div class="col-md-7 push-md-5">
-          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Ваши записи в социальных сетях.</h2>
+          <p class="lead">С помощью этого сервиса вы сможете Разместить по расписанию Ваши записи в социальных сетях</p>
         </div>
         <div class="col-md-5 pull-md-7">
-          <img class="featurette-image img-fluid m-x-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-fluid m-x-auto" src="{% static 'images/first_page/2.jpg' %}" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -151,11 +146,11 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Автопубликация в нашем сервисе.</h2>
+          <p class="lead">Это увеличение продуктивности на 50%, возможность сконцентрироваться только над действительно важной работой, и сведение к минимуму рутинных действий.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-fluid m-x-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-fluid m-x-auto" src="{% static 'images/first_page/3.PNG' %}" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -166,8 +161,8 @@
 
       <!-- FOOTER -->
       <footer>
-        <p class="pull-xs-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p class="pull-xs-right"><a href="">Вернуться к началу</a></p>
+        <p>&copy; 2020 Company of <a href="https://www.instagram.com/dima_shevchenko99/">Dmitry Shevchenko</a></p>
       </footer>
 
     </div><!-- /.container -->
@@ -177,12 +172,12 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="{% static "js/bootstrap.min.js" %}"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script src="{% static "js/holder.min.js" %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="{% static "js/ie10-viewport-bug-workaround.js" %}"></script>
   </body>
 </html>
