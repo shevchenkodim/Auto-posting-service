@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row" >
-    <div class="col-xs-6" style="height: 150px;"></div>
+    <div class="col-xs-6" style="height: 60px;"></div>
 </div>
 <div class="row">
     <div class="col-sm-6"></div>
@@ -9,7 +9,21 @@
         <h2>Login</h2>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_ul   }}
+            <div>
+            {% for field in form %}
+            <div class="form-group">
+                {{field.label_tag}}
+                <div>{{field}}</div>
+                {% if field.errors%}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            {{error}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+            </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
