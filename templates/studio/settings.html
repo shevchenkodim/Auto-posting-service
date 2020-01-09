@@ -2,5 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
-    <h1>settings</h1><br>
+    {% block title %}
+        <h1>Settings</h1><hr>
+    {% endblock title%}
 {% endblock content %}
