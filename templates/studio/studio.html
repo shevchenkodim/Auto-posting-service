@@ -22,7 +22,42 @@
     <div class="col-7 border border-dark mt-2">
         {% block content %}
             {% block title %}
-                <h1>My studio</h1><hr>
+            <div class="portlet-body">
+                <div class="row">
+                    <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
+                    <input type="hidden" id="url" value=""/>
+                    <div class="col-6">
+                        <h3>Account Detail</h3>
+                        <div class="img d-flex justify-content-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/1024px-Python.svg.png" alt="..." class="rounded-circle  " height="160" width="auto">
+                        </div>
+                        <form enctype="multipart/form-data">
+                          <div class="form-group ">
+                            <label for="exampleFormControlFile1">Example file input</label>
+                            <input type="file" class="form-control-file" id="icon">
+                          </div>
+                        </form>
+                        <div class="form-label-group">
+                            <input required readonly placeholder="Email Address" id="account_email" name="account[email]" type="email" class="form-control" value="{{ user.email }}">
+                            <label for="account_email"><span class="text-danger">Email</span> Address</label>
+                        </div>
+
+                    </div>
+                    <div class="col-5">
+                        <h3>Personal Detail</h3>
+                        <p><b>Last login</b> {{ user.last_login }}</p>
+                        <br>
+                        <h5>First Name</h5>
+                        <input type="name" id="first_name" value="{{ user.first_name }}" class="form-control form-control-sm" placeholder="">
+                        <br>
+                        <h5>Last Name</h5>
+                        <input type="name" id="last_name" value="{{ user.last_name }}" class="form-control form-control-sm" placeholder="">
+                        <div class="mt-4 d-flex justify-content-center">
+                            <button type="submit" class="save btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Save change</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endblock title%}
 
         {% endblock content %}
