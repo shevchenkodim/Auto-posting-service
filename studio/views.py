@@ -11,6 +11,8 @@ def tasks(request):
     posts = Post.objects.filter(user = request.user)
     return render(request, "studio/tasks.html", {'posts':posts})
 
+def taskcreate(request):
+    return render(request, "studio/task_create.html")
 
 def statistics(request):
     return render(request, "studio/statistics.html")
