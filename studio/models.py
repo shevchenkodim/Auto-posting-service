@@ -9,18 +9,34 @@ class SocialNetwork(models.Model):
     name = models.CharField("Назва", max_length=100)
     type = models.CharField("Тип", max_length=100)
 
+    def __str__(self):
+        return self.name
 
 class SocialNetworkFacebook(models.Model):
+    user         = models.ForeignKey(
+                                    User,
+                                    on_delete=models.CASCADE,
+                                    default='2')
     name           = models.ForeignKey(SocialNetwork, null=False, blank=False, on_delete=models.CASCADE)
     login          = models.CharField(null=False, blank=False, max_length=100)
     password       = models.CharField(null=False, blank=False, max_length=100)
     connect_result = models.BooleanField(null=False, default=False)
 
+    def __str__(self):
+        return self.login
+
 
 class SocialNetworkTelegram(models.Model):
+    user         = models.ForeignKey(
+                                    User,
+                                    on_delete=models.CASCADE,
+                                    default='2')
     name           = models.ForeignKey(SocialNetwork, null=False, blank=False, on_delete=models.CASCADE)
     name_channel   = models.CharField(null=False, blank=False, max_length=256)
     connect_result = models.BooleanField(null=False, default=False)
+
+    def __str__(self):
+        return self.name_channel
 
 
 class Post(models.Model):

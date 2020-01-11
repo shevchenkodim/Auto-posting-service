@@ -64,8 +64,7 @@
 </div>
 
 {% block script %}
-    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
@@ -73,6 +72,32 @@
         $(document).ready( function () {
             $('#myTable').DataTable();
         } );
+    </script>
+    <script>
+        $('.telegram').on('click', function(){
+            var formData = new FormData();
+            name_channel = $('#channel').val();
+            formData.append('name_channel', name_channel);
+            csrf_token =  $('input[name="csrf_token"]').attr('value');
+            formData.append('csrfmiddlewaretoken', csrf_token);
+            console.log(formData);
+            postUrl = $('#url_telegram').val();
+            console.log(postUrl);
+            $.post({url: postUrl,
+                    dataType: "json",
+                    data:formData,
+                    processData:false,
+                    contentType: false,
+                }).done(function(result) {
+                        if (result._code == 0 ){
+                            alert("ok");
+                            }
+                        else{
+                            alert("no");
+                            $('.telegram').text("Error! Click again")
+                            }
+                });
+        });
     </script>
 
 {% endblock script %}

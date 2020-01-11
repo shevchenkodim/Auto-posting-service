@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .models import Post
+from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkFacebook
+from django.http import JsonResponse
 
 # Create your views here.
 def studio(request):
@@ -15,4 +16,21 @@ def statistics(request):
     return render(request, "studio/statistics.html")
 
 def settings(request):
-    return render(request, "studio/settings.html")
+    telegram_acc = SocialNetworkTelegram.objects.filter(user=request.user)
+    return render(request, "studio/settings.html", {'telegram_acc':telegram_acc})
+
+
+def settingscreatetelegram(request):
+    if request.method == "POST":
+        name_channel = request.POST.get('name_channel','')
+        name = SocialNetwork.objects.get(pk=2)
+        telegram = SocialNetworkTelegram.objects.create(user=request.user, name=name, name_channel=name_channel, connect_result=False)
+        response_data = {'_code' : 0, '_status' : 'ok' }
+    else:
+        response_data = {'_code' : 1, '_status' : 'no' }
+
+    return JsonResponse(response_data)
+
+
+def settingscreatefacebook(request):
+    pass
