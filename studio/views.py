@@ -12,7 +12,9 @@ def tasks(request):
     return render(request, "studio/tasks.html", {'posts':posts})
 
 def taskcreate(request):
-    return render(request, "studio/task_create.html")
+    telegrams = SocialNetworkTelegram.objects.filter(user=request.user)
+    facebooks = SocialNetworkFacebook.objects.filter(user=request.user)
+    return render(request, "studio/task_create.html", {'telegrams':telegrams, 'facebooks':facebooks})
 
 def statistics(request):
     return render(request, "studio/statistics.html")

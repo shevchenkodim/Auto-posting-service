@@ -5,6 +5,50 @@
     {% block title %}
         <h1>Новое задание</h1><hr>
     {% endblock title%}
-    
-
+    <div class="form-group">
+      <label for="example-text-input">Назва</label>
+      <div class="col-10">
+        <input class="form-control" type="text" value="" id="example-text-input">
+      </div>
+    </div>
+    <hr>
+    <div class="form-group">
+      <label for="exampleTextarea">Додайте текст</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+    <hr>
+    <div class="form-group">
+      <label for="exampleInputFile">File input</label>
+      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+    </div>
+    <hr>
+    <div class="form-group row">
+      <label for="example-datetime-local-input" class="col-2 col-form-label">Дата та час</label>
+      <div class="col-10">
+        <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+      </div>
+    </div>
+    <hr>
+    <h6>Виберіть свої підключені соціальні мережі:</h6>
+    <div class="row">
+        <div class="col-4 mt-2 ml-5">
+            <h5>Telegram</h5> <select class="file_id" required id="id_file_id" name="">
+                <option id="file_name" value="" selected>---------------</option>
+                {% for telegram in telegrams %}
+                    <option id="{{telegram.id}}" value="{{telegram.id}}">{{telegram.name_channel}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-4 mt-2 ml-5">
+            <h5>Facebook</h5> <select class="file_id" required id="id_file_id" name="">
+                <option id="file_name" value="" selected>---------------</option>
+                {% for facebook in facebooks %}
+                    <option id="{{facebook.id}}" value="{{facebook.id}}">{{facebook.login}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="mt-3 mb-3">
+        <button type="button" class="addtaskpost btn btn-primary">Додати на виконання</button>
+    </div>
 {% endblock content %}
