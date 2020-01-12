@@ -6,6 +6,7 @@ urlpatterns = [
     path('tasks/',      views.tasks,          name="tasks"),
     path('tasks/create',views.taskcreate,     name="taskcreate"),
     path('tasks/create/new',views.taskcreatenew,  name="taskcreatenew"),
+    path('tasks/delete',views.taskdelete,     name="taskdelete"),
     path('statistics/', views.statistics,     name="statistics"),
     path('settings/',   views.settings,       name="settings"),
     path('settings/create/telegram', views.settingscreatetelegram, name="settingscreatetelegram"),

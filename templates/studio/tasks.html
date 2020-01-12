@@ -6,6 +6,8 @@
         <h1>Мои задания</h1><hr>
     {% endblock title%}
     <a class="btn btn-primary" href="{% url 'taskcreate' %}" role="button"><i class="fas fa-plus-square"></i> Добавить новое</a>
+    <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" id="url_delete_task" value="{% url 'taskdelete' %}"/>
     <div class="mt-2">
         <table id="myTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
@@ -20,7 +22,7 @@
             </thead>
             <tbody>
                 {% for post in posts %}
-                <tr>
+                <tr id="{{ post.id }}">
                     <td><h6>{{ post.title }}</h6></td>
                     <td>{{ post.date_posting }}</td>
                     <td>{% if post.facebook_result %}Виконано{% else %}Не виконано{% endif %}</td>
@@ -29,7 +31,7 @@
                         <a class="btn btn-primary" href="#" role="button"><i class="fas fa-edit"></i></a>
                     </div></td>
                     <td><div class="d-flex justify-content-center">
-                        <a class="btn btn-primary" href="#" role="button"><i class="fas fa-trash"></i></a>
+                        <a class="deletetask btn btn-primary" id="{{ post.id }}" href="#" role="button"><i class="fas fa-trash"></i></a>
                     </div></td>
                 </tr>
                 {% endfor %}

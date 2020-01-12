@@ -26,12 +26,28 @@ def taskcreatenew(request):
         file         = request.FILES
         f            = file.get('file')
         try:
-            task         = Post.objects.create(user=request.user, sn_facebook=facebook, sn_telegram=telegram, title=title, text=text, images=f, date_posting=date_posting, facebook_result=False, telegram_result=False)
+            task     = Post.objects.create(user=request.user, sn_facebook=facebook, sn_telegram=telegram, title=title, text=text, images=f, date_posting=date_posting, facebook_result=False, telegram_result=False)
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:
             response_data = {'_code' : 1, '_status' : 'no' }
             print(e)
 
+    return JsonResponse(response_data)
+
+
+def taskdelete(request):
+    if request.method == 'POST':
+        id = request.POST.get('id', '')
+    else:
+        id = request.GET.get('id', '')
+    try:
+        task = Post.objects.get(id=id, user=request.user)
+        task.delete()
+        response_data = {'_code' : 0, '_status' : 'ok' }
+        return JsonResponse(response_data)
+
+    except ChannelModel.DoesNotExist:
+        response_data = {'_code' : 1, '_status' : 'no' }
     return JsonResponse(response_data)
 
 
