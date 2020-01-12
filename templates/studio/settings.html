@@ -32,6 +32,7 @@
                             <input id="channel" class="form-control" type="text">
                         </div>
                         <input type="hidden" id="url_telegram" value="{% url 'settingscreatetelegram' %}"/>
+                        <input type="hidden" id="url_telegram_delete" value="{% url 'settingsdeletetelegram' %}"/>
                         <div class="mt-3">
                             <button type="button" class="telegram btn btn-primary">Додати на перевірку</button>
                         </div>
@@ -41,13 +42,17 @@
                                     <tr>
                                         <th>Channel name</th>
                                         <th>Подключение</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for telegram in telegram_acc %}
-                                    <tr>
+                                    <tr id="{{telegram.id}}">
                                         <td>{{telegram.name_channel}}</td>
                                         <td>{{telegram.connect_result}}</td>
+                                        <td><div class="">
+                                            <a class="telegram-delete btn btn-primary" id="{{telegram.id}}" href="#" role="button"><i class="fas fa-trash"></i></a>
+                                        </div></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -66,6 +71,7 @@
                             <input id="password" class="form-control" type="text">
                         </div>
                         <input type="hidden" id="url_facebook" value="{% url 'settingscreatefacebook' %}"/>
+                        <input type="hidden" id="url_facebook_delete" value="{% url 'settingsdeletefacebook' %}"/>
                         <div class="mt-3">
                             <button type="button" class="facebook btn btn-primary">Додати на перевірку</button>
                         </div>
@@ -75,13 +81,17 @@
                                     <tr>
                                         <th>Login</th>
                                         <th>Подключение</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for facebook in facebook_acc %}
-                                    <tr>
+                                    <tr id="{{facebook.id}}">
                                         <td>{{facebook.login}}</td>
                                         <td>{{facebook.connect_result}}</td>
+                                        <td><div class="">
+                                            <a class="facebook-delete btn btn-primary" id="{{facebook.id}}" href="#" role="button"><i class="fas fa-trash"></i></a>
+                                        </div></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

@@ -4,17 +4,21 @@ from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkFac
 from django.http import JsonResponse
 import datetime
 # Create your views here.
+
 def studio(request):
     return render(request, "studio/studio.html")
+
 
 def tasks(request):
     posts = Post.objects.filter(user = request.user)
     return render(request, "studio/tasks.html", {'posts':posts})
 
+
 def taskcreate(request):
     telegrams = SocialNetworkTelegram.objects.filter(user=request.user)
     facebooks = SocialNetworkFacebook.objects.filter(user=request.user)
     return render(request, "studio/task_create.html", {'telegrams':telegrams, 'facebooks':facebooks})
+
 
 def taskcreatenew(request):
     if request.method == 'POST':
@@ -46,7 +50,7 @@ def taskdelete(request):
         response_data = {'_code' : 0, '_status' : 'ok' }
         return JsonResponse(response_data)
 
-    except ChannelModel.DoesNotExist:
+    except Post.DoesNotExist:
         response_data = {'_code' : 1, '_status' : 'no' }
     return JsonResponse(response_data)
 
@@ -54,13 +58,14 @@ def taskdelete(request):
 def statistics(request):
     return render(request, "studio/statistics.html")
 
+
 def settings(request):
     telegram_acc = SocialNetworkTelegram.objects.filter(user=request.user)
     facebook_acc = SocialNetworkFacebook.objects.filter(user=request.user)
     return render(request, "studio/settings.html", {'telegram_acc':telegram_acc, 'facebook_acc':facebook_acc})
 
 
-def settingscreatetelegram(request):
+def createtelegram(request):
     if request.method == "POST":
         name_channel = request.POST.get('name_channel','')
         name         = SocialNetwork.objects.get(pk=2)
@@ -72,7 +77,7 @@ def settingscreatetelegram(request):
     return JsonResponse(response_data)
 
 
-def settingscreatefacebook(request):
+def createfacebook(request):
     if request.method == "POST":
         login    = request.POST.get('login','')
         password = request.POST.get('password','')
@@ -82,4 +87,36 @@ def settingscreatefacebook(request):
     else:
         response_data = {'_code' : 1, '_status' : 'no' }
 
+    return JsonResponse(response_data)
+
+
+def deletetelegram(request):
+    if request.method == 'POST':
+        id = request.POST.get('id', '')
+    else:
+        id = request.GET.get('id', '')
+    try:
+        telegram = SocialNetworkTelegram.objects.get(id=id, user=request.user)
+        telegram.delete()
+        response_data = {'_code' : 0, '_status' : 'ok' }
+        return JsonResponse(response_data)
+
+    except SocialNetworkTelegram.DoesNotExist:
+        response_data = {'_code' : 1, '_status' : 'no' }
+    return JsonResponse(response_data)
+
+
+def deletefacebook(request):
+    if request.method == 'POST':
+        id = request.POST.get('id', '')
+    else:
+        id = request.GET.get('id', '')
+    try:
+        facebook = SocialNetworkFacebook.objects.get(id=id, user=request.user)
+        facebook.delete()
+        response_data = {'_code' : 0, '_status' : 'ok' }
+        return JsonResponse(response_data)
+
+    except SocialNetworkFacebook.DoesNotExist:
+        response_data = {'_code' : 1, '_status' : 'no' }
     return JsonResponse(response_data)

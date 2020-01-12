@@ -9,6 +9,8 @@ urlpatterns = [
     path('tasks/delete',views.taskdelete,     name="taskdelete"),
     path('statistics/', views.statistics,     name="statistics"),
     path('settings/',   views.settings,       name="settings"),
-    path('settings/create/telegram', views.settingscreatetelegram, name="settingscreatetelegram"),
-    path('settings/create/facebbok', views.settingscreatefacebook, name="settingscreatefacebook"),
+    path('settings/create/telegram', views.createtelegram, name="settingscreatetelegram"),
+    path('settings/delete/telegram', views.deletetelegram, name="settingsdeletetelegram"),
+    path('settings/create/facebbok', views.createfacebook, name="settingscreatefacebook"),
+    path('settings/delete/facebbok', views.deletefacebook, name="settingsdeletefacebook"),
 ]
