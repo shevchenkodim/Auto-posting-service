@@ -51,7 +51,8 @@ class Post(models.Model):
     images           = models.ImageField("Картинка", upload_to=settings.MEDIA_ROOT, blank=True, null=True)
     date_posting     = models.DateTimeField("Дата час коли викласти", blank=True, null=True)
     date_post_create = models.DateTimeField("Дата создания", auto_now_add=True, blank=True, null=True)
-    connect_result = models.BooleanField(null=False, default=False)
+    facebook_result  = models.BooleanField(null=False, default=False)
+    telegram_result  = models.BooleanField(null=False, default=False)
 
     def __str__(self):
         return self.title
