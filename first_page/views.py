@@ -1,6 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from studio.models import Profile
 
 def page(request):
     return render(request, 'first_page.html')
@@ -14,6 +15,7 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
+            profile = Profile.objects.create(user = user)
             login(request, user)
             return redirect('/')
     else:

@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('',            views.studio,         name="studio"),
+    path('profile/save',views.saveprofile,   name='saveprofile'),
     path('tasks/',      views.tasks,          name="tasks"),
     path('tasks/create',views.taskcreate,     name="taskcreate"),
     path('tasks/create/new',views.taskcreatenew,  name="taskcreatenew"),

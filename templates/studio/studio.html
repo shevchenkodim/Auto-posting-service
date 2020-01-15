@@ -25,11 +25,11 @@
             <div class="portlet-body">
                 <div class="row">
                     <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
-                    <input type="hidden" id="url" value=""/>
+                    <input type="hidden" id="url" value="{% url 'saveprofile' %}"/>
                     <div class="col-6">
                         <h3>Account Detail</h3>
                         <div class="img d-flex justify-content-center">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/1024px-Python.svg.png" alt="..." class="rounded-circle  " height="160" width="auto">
+                            <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% endif %}" alt="..." class="rounded-circle  " height="160" width="auto">
                         </div>
                         <form enctype="multipart/form-data">
                           <div class="form-group ">
@@ -38,7 +38,7 @@
                           </div>
                         </form>
                         <div class="form-label-group">
-                            <input required readonly placeholder="Email Address" id="account_email" name="account[email]" type="email" class="form-control" value="{{ user.email }}">
+                            <input placeholder="Email Address" id="account_email" name="account[email]" type="email" class="form-control" value="{{ user.email }}">
                             <label for="account_email"><span class="text-danger">Email</span> Address</label>
                         </div>
 
@@ -53,7 +53,7 @@
                         <h5>Last Name</h5>
                         <input type="name" id="last_name" value="{{ user.last_name }}" class="form-control form-control-sm" placeholder="">
                         <div class="mt-4 d-flex justify-content-center">
-                            <button type="submit" class="save btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Save change</button>
+                            <button type="submit" class="save-profile btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Save change</button>
                         </div>
                     </div>
                 </div>
@@ -75,4 +75,6 @@
     <script type="text/javascript" src="{% static "js/studio_delete_task.js" %}"></script>
     <script type="text/javascript" src="{% static "js/studio_delete_facebook.js" %}"></script>
     <script type="text/javascript" src="{% static "js/studio_delete_telegram.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/studio_save_profile.js" %}"></script>
+
 {% endblock script %}

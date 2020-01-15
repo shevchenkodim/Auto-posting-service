@@ -1,13 +1,43 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkFacebook
+from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkFacebook, Profile
 from django.http import JsonResponse
+from django.contrib.auth.models import User
 import datetime
 # Create your views here.
 
 def studio(request):
     return render(request, "studio/studio.html")
 
+def saveprofile(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        email = request.POST.get('account_email','')
+        file = request.FILES
+        f = file.get('file')
+        try:
+            user = request.user
+        except User.DoesNotExist:
+            response_data = {'_code' : 1, '_status' : 'no' }
+            return JsonResponse(response_data)
+        try:
+            profile = Profile.objects.get(user=request.user)
+        except Profile.DoesNotExist:
+            response_data = {'_code' : 1, '_status' : 'no' }
+            return JsonResponse(response_data)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()
+        if f != None:
+            profile.image = f
+        profile.save()
+        response_data = {'_code' : 0, '_status' : 'ok' }
+    else:
+        response_data = {'_code' : 1, '_status' : 'no' }
+
+    return JsonResponse(response_data)
 
 def tasks(request):
     posts = Post.objects.filter(user = request.user)
