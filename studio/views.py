@@ -3,11 +3,13 @@ from django.shortcuts import redirect
 from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkFacebook, Profile
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.views.generic import TemplateView
 import datetime
 # Create your views here.
 
-def studio(request):
-    return render(request, "studio/main.html")
+class Studio(TemplateView):
+    template_name = "studio/main.html"
+
 
 def saveprofile(request):
     if request.method == 'POST':
@@ -39,15 +41,21 @@ def saveprofile(request):
 
     return JsonResponse(response_data)
 
-def tasks(request):
-    posts = Post.objects.filter(user = request.user)
-    return render(request, "studio/tasks.html", {'posts':posts})
+class Tasks(TemplateView):
+    template_name = "studio/tasks.html"
+
+    def get(self, request, *args, **kwargs):
+        posts = Post.objects.filter(user = request.user)
+        return render(request, self.template_name, {'posts':posts})
 
 
-def taskcreate(request):
-    telegrams = SocialNetworkTelegram.objects.filter(user=request.user)
-    facebooks = SocialNetworkFacebook.objects.filter(user=request.user)
-    return render(request, "studio/task_create.html", {'telegrams':telegrams, 'facebooks':facebooks})
+class Taskscreate(TemplateView):
+    template_name = "studio/task_create.html"
+
+    def get(self, request, *args, **kwargs):
+        telegrams = SocialNetworkTelegram.objects.filter(user=request.user)
+        facebooks = SocialNetworkFacebook.objects.filter(user=request.user)
+        return render(request, self.template_name, {'telegrams':telegrams, 'facebooks':facebooks})
 
 
 def taskcreatenew(request):
@@ -85,14 +93,17 @@ def taskdelete(request):
     return JsonResponse(response_data)
 
 
-def statistics(request):
-    return render(request, "studio/statistics.html")
+class Statistics(TemplateView):
+    template_name = "studio/statistics.html"
 
 
-def settings(request):
-    telegram_acc = SocialNetworkTelegram.objects.filter(user=request.user)
-    facebook_acc = SocialNetworkFacebook.objects.filter(user=request.user)
-    return render(request, "studio/settings.html", {'telegram_acc':telegram_acc, 'facebook_acc':facebook_acc})
+class Settings(TemplateView):
+    template_name = "studio/settings.html"
+
+    def get(self, request, *args, **kwargs):
+        telegram_acc = SocialNetworkTelegram.objects.filter(user=request.user)
+        facebook_acc = SocialNetworkFacebook.objects.filter(user=request.user)
+        return render(request, self.template_name, {'telegram_acc':telegram_acc, 'facebook_acc':facebook_acc})
 
 
 def createtelegram(request):
