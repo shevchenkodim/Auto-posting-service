@@ -1,10 +1,8 @@
-{% extends "studio/studio.html" %}
+{% extends "studio/studio_base.html" %}
 {% load staticfiles %}
 
 {% block content %}
-    {% block title %}
-        <h1>Мои задания</h1><hr>
-    {% endblock title%}
+    <h1>Мои задания</h1><hr>
     <a class="btn btn-primary" href="{% url 'taskcreate' %}" role="button"><i class="fas fa-plus-square"></i> Добавить новое</a>
     <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
     <input type="hidden" id="url_delete_task" value="{% url 'taskdelete' %}"/>
@@ -38,5 +36,9 @@
             </tbody>
         </table>
     </div>
-
 {% endblock content %}
+
+{% block page_js %}
+    <script type="text/javascript" src="{% static "js/table.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/studio_delete_task.js" %}"></script>
+{% endblock page_js %}

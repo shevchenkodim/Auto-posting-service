@@ -1,10 +1,9 @@
-{% extends "studio/studio.html" %}
+{% extends "studio/studio_base.html" %}
 {% load staticfiles %}
 
 {% block content %}
-    {% block title %}
-        <h1>Новое задание</h1><hr>
-    {% endblock title%}
+    <h1>Новое задание</h1>
+    <hr>
     <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
     <div class="form-group">
       <label for="example-text-input">Назва</label>
@@ -54,3 +53,7 @@
         <button type="button" class="addtaskpost btn btn-primary">Додати на виконання</button>
     </div>
 {% endblock content %}
+
+{% block page_js %}
+    <script type="text/javascript" src="{% static "js/studio_create_task.js" %}"></script>
+{% endblock page_js %}

@@ -7,7 +7,7 @@ import datetime
 # Create your views here.
 
 def studio(request):
-    return render(request, "studio/studio.html")
+    return render(request, "studio/main.html")
 
 def saveprofile(request):
     if request.method == 'POST':
