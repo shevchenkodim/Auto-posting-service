@@ -26,7 +26,7 @@
                     <td>{% if post.facebook_result %}Виконано{% else %}Не виконано{% endif %}</td>
                     <td>{% if post.telegram_result %}Виконано{% else %}Не виконано{% endif %}</td>
                     <td><div class="d-flex justify-content-center">
-                        <a class="btn btn-primary" href="#" role="button"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-primary" href="{% url 'taskupdate' pk=post.id %}" role="button"><i class="fas fa-edit"></i></a>
                     </div></td>
                     <td><div class="d-flex justify-content-center">
                         <a class="deletetask btn btn-primary" id="{{ post.id }}" href="#" role="button"><i class="fas fa-trash"></i></a>

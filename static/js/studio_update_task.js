@@ -1,4 +1,4 @@
-$('.addtaskpost').on('click', function(){
+$('.updtaskpost').on('click', function(){
     var formData = new FormData();
     formData.append('file', $('#exampleInputFile')[0].files[0]);
     title = $('#title').val();
@@ -13,7 +13,7 @@ $('.addtaskpost').on('click', function(){
     formData.append('facebook', facebook);
     csrf_token =  $('input[name="csrf_token"]').attr('value');
     formData.append('csrfmiddlewaretoken', csrf_token);
-    postUrl = $('#url_add_task').val();
+    postUrl = $('#url_update_task').val();
     $.post({url: postUrl,
             dataType: "json",
             data:formData,
@@ -25,7 +25,7 @@ $('.addtaskpost').on('click', function(){
                     window.location.replace("/studio/tasks");
                     }
                 else{
-                    $('.addtaskpost').text("Error! Click again")
+                    $('.updtaskpost').text("Error! Click again")
                     }
         });
 });

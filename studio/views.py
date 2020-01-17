@@ -58,6 +58,44 @@ class Taskscreate(TemplateView):
         return render(request, self.template_name, {'telegrams':telegrams, 'facebooks':facebooks})
 
 
+class Taskupdate(TemplateView):
+    template_name = "studio/task_update.html"
+
+    def get(self, request, *args, **kwargs):
+        post = Post.objects.get(pk=self.kwargs['pk'])
+        telegrams = SocialNetworkTelegram.objects.filter(user=request.user)
+        facebooks = SocialNetworkFacebook.objects.filter(user=request.user)
+        return render(request, self.template_name, {'telegrams':telegrams, 'facebooks':facebooks, 'post':post})
+
+
+def taskupdatesave(request, pk):
+    if request.method == 'POST':
+        title        = request.POST.get('title','')
+        text         = request.POST.get('text','')
+        date_posting = request.POST.get('date_posting','')
+        telegram     = SocialNetworkTelegram.objects.get(pk=request.POST.get('telegram',''))
+        facebook     = SocialNetworkFacebook.objects.get(pk=request.POST.get('facebook',''))
+        file         = request.FILES
+        f            = file.get('file')
+        try:
+            task = Post.objects.get(user=request.user, pk = pk)
+            task.sn_facebook=facebook
+            task.sn_telegram=telegram
+            task.title=title
+            task.text=text
+            if f != None:
+                task.images=f
+            task.date_posting=date_posting
+            task.facebook_result=False
+            task.telegram_result=False
+            task.save()
+            response_data = {'_code' : 0, '_status' : 'ok' }
+        except Exception as e:
+            response_data = {'_code' : 1, '_status' : 'no' }
+
+    return JsonResponse(response_data)
+
+
 def taskcreatenew(request):
     if request.method == 'POST':
         title        = request.POST.get('title','')
