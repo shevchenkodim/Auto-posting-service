@@ -27,9 +27,18 @@
       <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
     </div>
     <hr>
+    <div class="row">
+        <div class="col-4">
+            <h6>Заплановано викласти:</h6>
+        </div>
+        <div class="col-8 text-center">
+            <h6>Вказати нову дату та час:</h6>
+        </div>
+
+    </div>
     <div class="form-group row">
-      <label for="example-datetime-local-input" class="col-2 col-form-label">Дата та час</label>
-      <div class="col-10">
+      <label for="example-datetime-local-input" class="col-4 col-form-label pl-6"><h6><b>{{ post.date_posting }}</b></h6></label>
+      <div class="col-8">
         <input class="form-control" type="datetime-local" value="2020-02-10T13:45:00" id="example-datetime-local-input">
       </div>
     </div>
@@ -38,7 +47,7 @@
     <div class="row">
         <div class="col-4 mt-2 ml-5">
             <h5>Telegram</h5> <select class="file_id form-control" required id="id_file_id_t" name="">
-                <option id="file_name" value="" selected>---------------</option>
+                <option id="file_name" value="{{ post.sn_telegram.id }}" selected>{{ post.sn_telegram.name_channel }}</option>
                 {% for telegram in telegrams %}
                     <option id="{{telegram.id}}" value="{{telegram.id}}">{{telegram.name_channel}}</option>
                 {% endfor %}
@@ -46,7 +55,7 @@
         </div>
         <div class="col-4 mt-2 ml-5">
             <h5>Facebook</h5> <select class="file_id form-control" required id="id_file_id_f" name="">
-                <option id="file_name" value="" selected>---------------</option>
+                <option id="file_name" value="{{ post.sn_facebook.id }}" selected>{{ post.sn_facebook.login }}</option>
                 {% for facebook in facebooks %}
                     <option id="{{facebook.id}}" value="{{facebook.id}}">{{facebook.login}}</option>
                 {% endfor %}
