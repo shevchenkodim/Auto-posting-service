@@ -3,8 +3,18 @@ $('.facebook').on('click', function(){
     $('#progress').attr("class", "spinner-border spinner-border-sm")
     var formData = new FormData();
     login = $('#login').val();
+    if(login =='' || login.length < 2 && login.length > 100){
+        alert("Error! Please, check your login");
+        $('#progress').attr("class", "fi fi-check")
+        return false;
+    }
     formData.append('login', login);
     password = $('#password').val();
+    if(password =='' || password.length < 2 && password.length > 100){
+        alert("Error! Please, check your password");
+        $('#progress').attr("class", "fi fi-check")
+        return false;
+    }
     formData.append('password', password);
     csrf_token =  $('input[name="csrf_token"]').attr('value');
     formData.append('csrfmiddlewaretoken', csrf_token);

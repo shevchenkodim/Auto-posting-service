@@ -2,14 +2,29 @@ $('.addtaskpost').on('click', function(){
     var formData = new FormData();
     formData.append('file', $('#exampleInputFile')[0].files[0]);
     title = $('#title').val();
+    if(title =='' || title.length < 2 && title.length > 100){
+        alert("Error! Please, check your title");
+        $('#progress').attr("class", "fi fi-check")
+        return false;
+    }
     formData.append('title', title);
     text = $('#text').val();
     formData.append('text', text);
     date_posting = $('#example-datetime-local-input').val();
     formData.append('date_posting', date_posting);
     telegram = $('#id_file_id_t').val();
+    if(telegram ==''){
+        alert("Error! Please, check your telegram");
+        $('#progress').attr("class", "fi fi-check")
+        return false;
+    }
     formData.append('telegram', telegram);
     facebook = $('#id_file_id_f').val();
+    if(facebook ==''){
+        alert("Error! Please, check your facebook");
+        $('#progress').attr("class", "fi fi-check")
+        return false;
+    }
     formData.append('facebook', facebook);
     csrf_token =  $('input[name="csrf_token"]').attr('value');
     formData.append('csrfmiddlewaretoken', csrf_token);

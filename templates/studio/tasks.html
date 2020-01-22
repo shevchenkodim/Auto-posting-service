@@ -21,7 +21,7 @@
             <tbody>
                 {% for post in posts %}
                 <tr id="{{ post.id }}">
-                    <td><h6>{{ post.title }}</h6></td>
+                    <td><h6>{{ post.title|truncatechars:25 }}</h6></td>
                     <td>{{ post.date_posting }}</td>
                     <td>{% if post.facebook_result %}Виконано{% else %}Не виконано{% endif %}</td>
                     <td>{% if post.telegram_result %}Виконано{% else %}Не виконано{% endif %}</td>
