@@ -4,14 +4,16 @@ $('.facebook').on('click', function(){
     var formData = new FormData();
     login = $('#login').val();
     if(login =='' || login.length < 2 && login.length > 100){
-        alert("Error! Please, check your login");
+        $('.iframe-text').text(' Please, check your login!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }
     formData.append('login', login);
     password = $('#password').val();
     if(password =='' || password.length < 2 && password.length > 100){
-        alert("Error! Please, check your password");
+        $('.iframe-text').text(' Please, check your password!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }

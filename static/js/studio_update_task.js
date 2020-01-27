@@ -3,7 +3,8 @@ $('.updtaskpost').on('click', function(){
     formData.append('file', $('#exampleInputFile')[0].files[0]);
     title = $('#title').val();
     if(title =='' || title.length < 2 && title.length > 100){
-        alert("Error! Please, check your title");
+        $('.iframe-text').text(' Please, check your title!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }

@@ -4,7 +4,8 @@ $('.telegram').on('click', function(){
     var formData = new FormData();
     name_channel = $('#channel').val();
     if(name_channel =='' || name_channel.length < 2 && name_channel.length > 256){
-        alert("Error! Please, check your Name channel");
+        $('.iframe-text').text(' Please, check your Name channel!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }

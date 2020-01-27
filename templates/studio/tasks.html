@@ -6,7 +6,7 @@
     <a class="btn btn-primary" href="{% url 'taskcreate' %}" role="button"><i class="fas fa-plus-square"></i> Добавить новое</a>
     <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
     <input type="hidden" id="url_delete_task" value="{% url 'taskdelete' %}"/>
-    <div class="mt-2">
+    <div class="mt-2 mb-3">
         <table id="myTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>

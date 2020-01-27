@@ -3,7 +3,8 @@ $('.addtaskpost').on('click', function(){
     formData.append('file', $('#exampleInputFile')[0].files[0]);
     title = $('#title').val();
     if(title =='' || title.length < 2 && title.length > 100){
-        alert("Error! Please, check your title");
+        $('.iframe-text').text(' Please, check your title!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }
@@ -14,14 +15,16 @@ $('.addtaskpost').on('click', function(){
     formData.append('date_posting', date_posting);
     telegram = $('#id_file_id_t').val();
     if(telegram ==''){
-        alert("Error! Please, check your telegram");
+        $('.iframe-text').text(' Please, check your telegram!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }
     formData.append('telegram', telegram);
     facebook = $('#id_file_id_f').val();
     if(facebook ==''){
-        alert("Error! Please, check your facebook");
+        $('.iframe-text').text(' Please, check your facebook!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }

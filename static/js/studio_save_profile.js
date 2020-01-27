@@ -5,14 +5,16 @@ $('.save-profile').on('click', function(){
     formData.append('file', $('#icon')[0].files[0]);
     first_name = $('#first_name').val();
     if(first_name =='' || first_name.length < 2 && first_name.length > 30){
-        alert("Error! Please, check your First Name");
+        $('.iframe-text').text('Please, check your First Name!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }
     formData.append('first_name', first_name);
     last_name = $('#last_name').val();
     if(last_name =='' || last_name.length < 3 && last_name.length > 150){
-        alert("Error! Please, check your Last Name");
+        $('.iframe-text').text('Please, check your Last Name!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }
@@ -20,7 +22,8 @@ $('.save-profile').on('click', function(){
     account_email = $('#account_email').val();
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     if(reg.test(account_email) == false) {
-        alert('Введите корректный e-mail');
+        $('.iframe-text').text('Введите корректный e-mail!');
+        $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
         return false;
     }
