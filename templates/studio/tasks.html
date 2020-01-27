@@ -23,8 +23,8 @@
                 <tr id="{{ post.id }}">
                     <td><h6>{{ post.title|truncatechars:25 }}</h6></td>
                     <td>{{ post.date_posting }}</td>
-                    <td>{% if post.facebook_result %}Виконано{% else %}Не виконано{% endif %}</td>
-                    <td>{% if post.telegram_result %}Виконано{% else %}Не виконано{% endif %}</td>
+                    <td>{% if post.sn_facebook %}{% if post.facebook_result %}Виконано{% else %}Не виконано{% endif %}{% else %}Not connection{% endif %}</td>
+                    <td>{% if post.sn_telegram %}{% if post.telegram_result %}Виконано{% else %}Не виконано{% endif %}{% else %}Not connection{% endif %}</td>
                     <td><div class="d-flex justify-content-center">
                         <a class="btn btn-primary" href="{% url 'taskupdate' pk=post.id %}" role="button"><i class="fas fa-edit"></i></a>
                     </div></td>

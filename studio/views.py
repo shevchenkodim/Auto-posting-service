@@ -73,8 +73,14 @@ def taskupdatesave(request, pk):
         title        = request.POST.get('title','')
         text         = request.POST.get('text','')
         date_posting = request.POST.get('date_posting','')
-        telegram     = SocialNetworkTelegram.objects.get(pk=request.POST.get('telegram',''))
-        facebook     = SocialNetworkFacebook.objects.get(pk=request.POST.get('facebook',''))
+        if request.POST.get('telegram','') == '':
+            telegram = None
+        else:
+            telegram     = SocialNetworkTelegram.objects.get(pk=request.POST.get('telegram',''))
+        if request.POST.get('facebook','') == '':
+            facebook = None
+        else:
+            facebook     = SocialNetworkFacebook.objects.get(pk=request.POST.get('facebook',''))
         file         = request.FILES
         f            = file.get('file')
         try:
@@ -101,8 +107,15 @@ def taskcreatenew(request):
         title        = request.POST.get('title','')
         text         = request.POST.get('text','')
         date_posting = request.POST.get('date_posting','')
-        telegram     = SocialNetworkTelegram.objects.get(pk=request.POST.get('telegram',''))
-        facebook     = SocialNetworkFacebook.objects.get(pk=request.POST.get('facebook',''))
+        if request.POST.get('telegram','') == '':
+            telegram = None
+        else:
+            telegram     = SocialNetworkTelegram.objects.get(pk=request.POST.get('telegram',''))
+        if request.POST.get('facebook','') == '':
+            facebook = None
+        else:
+            facebook     = SocialNetworkFacebook.objects.get(pk=request.POST.get('facebook',''))
+
         file         = request.FILES
         f            = file.get('file')
         try:

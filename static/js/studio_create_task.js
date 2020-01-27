@@ -14,20 +14,8 @@ $('.addtaskpost').on('click', function(){
     date_posting = $('#example-datetime-local-input').val();
     formData.append('date_posting', date_posting);
     telegram = $('#id_file_id_t').val();
-    if(telegram ==''){
-        $('.iframe-text').text(' Please, check your telegram!');
-        $('#exampleModalCenter').modal('show');
-        $('#progress').attr("class", "fi fi-check")
-        return false;
-    }
     formData.append('telegram', telegram);
     facebook = $('#id_file_id_f').val();
-    if(facebook ==''){
-        $('.iframe-text').text(' Please, check your facebook!');
-        $('#exampleModalCenter').modal('show');
-        $('#progress').attr("class", "fi fi-check")
-        return false;
-    }
     formData.append('facebook', facebook);
     csrf_token =  $('input[name="csrf_token"]').attr('value');
     formData.append('csrfmiddlewaretoken', csrf_token);
