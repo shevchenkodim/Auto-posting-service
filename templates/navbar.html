@@ -3,6 +3,9 @@
   <ul class="nav navbar-nav">
      {% if user.is_active %}
          <li class="nav-item">
+           <a class="nav-link" href="/studio/">Studio<span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
            <a class="nav-link" href="/logout/">Вихід<span class="sr-only">(current)</span></a>
          </li>
         <li class="nav-item">
