@@ -31,15 +31,10 @@
         <div class="col-4">
             <h6>Заплановано викласти:</h6>
         </div>
-        <div class="col-8 text-center">
-            <h6>Вказати нову дату та час:</h6>
-        </div>
-
     </div>
     <div class="form-group row">
-      <label for="example-datetime-local-input" class="col-4 col-form-label pl-6"><h6><b>{{ post.date_posting }}</b></h6></label>
-      <div class="col-8">
-        <input class="form-control" type="datetime-local" value="2020-02-10T13:45:00" id="example-datetime-local-input">
+      <div class="col-6">
+        <input class="form-control" type="datetime-local" value="{{ post.date_posting|date:"Y-m-d" }}T{{ post.date_posting|date:"H:i:s" }}" id="example-datetime-local-input">
       </div>
     </div>
     <hr>

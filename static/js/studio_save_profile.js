@@ -4,7 +4,7 @@ $('.save-profile').on('click', function(){
     var formData = new FormData();
     formData.append('file', $('#icon')[0].files[0]);
     first_name = $('#first_name').val();
-    if(first_name =='' || first_name.length < 2 && first_name.length > 30){
+    if(first_name.length > 30){
         $('.iframe-text').text('Please, check your First Name!');
         $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
@@ -12,7 +12,7 @@ $('.save-profile').on('click', function(){
     }
     formData.append('first_name', first_name);
     last_name = $('#last_name').val();
-    if(last_name =='' || last_name.length < 3 && last_name.length > 150){
+    if(last_name.length > 150){
         $('.iframe-text').text('Please, check your Last Name!');
         $('#exampleModalCenter').modal('show');
         $('#progress').attr("class", "fi fi-check")
