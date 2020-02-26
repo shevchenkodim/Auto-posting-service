@@ -159,7 +159,7 @@ class Settings(TemplateView):
 
 def createtelegram(request):
     if request.method == "POST":
-        name_channel = request.POST.get('name_channel','')
+        name_channel = '@' + request.POST.get('name_channel','')
         name         = SocialNetwork.objects.get(pk=2)
         telegram     = SocialNetworkTelegram.objects.create(user=request.user, name=name, name_channel=name_channel, connect_result=False)
         response_data = {'_code' : 0, '_status' : 'ok' }
