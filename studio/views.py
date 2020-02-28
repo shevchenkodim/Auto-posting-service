@@ -55,7 +55,8 @@ class Taskscreate(TemplateView):
     def get(self, request, *args, **kwargs):
         telegrams = SocialNetworkTelegram.objects.filter(user=request.user)
         facebooks = SocialNetworkFacebook.objects.filter(user=request.user)
-        return render(request, self.template_name, {'telegrams':telegrams, 'facebooks':facebooks})
+        date_posting = datetime.datetime.now()
+        return render(request, self.template_name, {'telegrams':telegrams, 'facebooks':facebooks, 'date_posting':date_posting})
 
 
 class Taskupdate(TemplateView):
