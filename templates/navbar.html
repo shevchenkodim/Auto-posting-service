@@ -1,9 +1,9 @@
 <nav class="navbar navbar-static-top navbar-light bg-faded">
-  <a href="/" class="navbar-brand">Auto posting</a>
+  <a href="{% url 'first_page:first_page' %}" class="navbar-brand">Auto posting</a>
   <ul class="nav navbar-nav">
      {% if user.is_active %}
          <li class="nav-item">
-           <a class="nav-link" href="/studio/">Студія<span class="sr-only">(current)</span></a>
+           <a class="nav-link" href="{% url 'studio:studio' %}">Студія<span class="sr-only">(current)</span></a>
          </li>
          <li class="nav-item">
            <a class="nav-link" href="/logout/">Вихід<span class="sr-only">(current)</span></a>

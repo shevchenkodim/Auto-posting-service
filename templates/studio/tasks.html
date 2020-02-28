@@ -3,9 +3,9 @@
 
 {% block content %}
     <h1>Мои задания</h1><hr>
-    <a class="btn btn-primary" href="{% url 'taskcreate' %}" role="button"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Створити</a>
+    <a class="btn btn-primary" href="{% url 'studio:taskcreate' %}" role="button"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Створити</a>
     <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
-    <input type="hidden" id="url_delete_task" value="{% url 'taskdelete' %}"/>
+    <input type="hidden" id="url_delete_task" value="{% url 'studio:taskdelete' %}"/>
     <div class="mt-2 mb-3">
         <table id="myTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
@@ -26,7 +26,7 @@
                     <td>{% if post.sn_facebook %}{% if post.facebook_result %}Виконано{% else %}Не виконано{% endif %}{% else %}Not connection{% endif %}</td>
                     <td>{% if post.sn_telegram %}{% if post.telegram_result %}Виконано{% else %}Не виконано{% endif %}{% else %}Not connection{% endif %}</td>
                     <td><div class="d-flex justify-content-center">
-                        <a class="btn btn-primary" href="{% url 'taskupdate' pk=post.id %}" role="button"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-primary" href="{% url 'studio:taskupdate' pk=post.id %}" role="button"><i class="fas fa-edit"></i></a>
                     </div></td>
                     <td><div class="d-flex justify-content-center">
                         <a class="deletetask btn btn-primary" id="{{ post.id }}" href="#" role="button"><i class="fas fa-trash"></i></a>

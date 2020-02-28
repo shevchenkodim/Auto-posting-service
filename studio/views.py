@@ -41,6 +41,14 @@ def saveprofile(request):
 
     return JsonResponse(response_data)
 
+
+class SocialNetworkPage(TemplateView):
+    template_name = "studio/social_network.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
 class Tasks(TemplateView):
     template_name = "studio/tasks.html"
 

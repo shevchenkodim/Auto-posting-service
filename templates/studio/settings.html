@@ -30,8 +30,8 @@
                     <h5>Назва каналу</h5>
                     <input id="channel" class="form-control" type="text">
                 </div>
-                <input type="hidden" id="url_telegram" value="{% url 'settingscreatetelegram' %}"/>
-                <input type="hidden" id="url_telegram_delete" value="{% url 'settingsdeletetelegram' %}"/>
+                <input type="hidden" id="url_telegram" value="{% url 'studio:settingscreatetelegram' %}"/>
+                <input type="hidden" id="url_telegram_delete" value="{% url 'studio:settingsdeletetelegram' %}"/>
                 <div class="mt-3">
                     <button type="button" class="telegram btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Додати на перевірку</button>
                 </div>
@@ -69,8 +69,8 @@
                     <h5>Пароль</h5>
                     <input id="password" class="form-control" type="password">
                 </div>
-                <input type="hidden" id="url_facebook" value="{% url 'settingscreatefacebook' %}"/>
-                <input type="hidden" id="url_facebook_delete" value="{% url 'settingsdeletefacebook' %}"/>
+                <input type="hidden" id="url_facebook" value="{% url 'studio:settingscreatefacebook' %}"/>
+                <input type="hidden" id="url_facebook_delete" value="{% url 'studio:settingsdeletefacebook' %}"/>
                 <div class="mt-3">
                     <button type="button" class="facebook btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Додати на перевірку</button>
                 </div>
