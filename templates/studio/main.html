@@ -7,13 +7,13 @@
             <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
             <input type="hidden" id="url" value="{% url 'saveprofile' %}"/>
             <div class="col-6">
-                <h3>Account Detail</h3>
+                <h3>Ваш акаунт</h3>
                 <div class="img d-flex justify-content-center">
                     <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% endif %}" alt="..." class="rounded" height="160" width="auto">
                 </div>
                 <form enctype="multipart/form-data">
                   <div class="form-group ">
-                    <label for="exampleFormControlFile1">Example file input</label>
+                    <label for="exampleFormControlFile1">Виберіть фото профілю</label>
                     <input type="file" class="form-control-file" id="icon">
                   </div>
                 </form>
@@ -24,13 +24,13 @@
 
             </div>
             <div class="col-5">
-                <h3>Personal Detail</h3>
-                <p><b>Last login</b> {{ user.last_login }}</p>
+                <h3>Персональні дані</h3>
+                <p><b>Останній вхід</b> {{ user.last_login }}</p>
                 <br>
-                <h5>First Name</h5>
+                <h5>Ім’я</h5>
                 <input type="name" id="first_name" value="{{ user.first_name }}" class="form-control form-control-sm" placeholder="">
                 <br>
-                <h5>Last Name</h5>
+                <h5>Прізвище</h5>
                 <input type="name" id="last_name" value="{{ user.last_name }}" class="form-control form-control-sm" placeholder="">
                 <div class="mt-4 d-flex justify-content-center">
                     <button type="submit" class="save-profile btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Save change</button>

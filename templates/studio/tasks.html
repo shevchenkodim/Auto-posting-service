@@ -3,19 +3,19 @@
 
 {% block content %}
     <h1>Мои задания</h1><hr>
-    <a class="btn btn-primary" href="{% url 'taskcreate' %}" role="button"><i class="fas fa-plus-square"></i> Добавить новое</a>
+    <a class="btn btn-primary" href="{% url 'taskcreate' %}" role="button"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Створити</a>
     <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
     <input type="hidden" id="url_delete_task" value="{% url 'taskdelete' %}"/>
     <div class="mt-2 mb-3">
         <table id="myTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Date</th>
+                    <th>Назва</th>
+                    <th>Дата</th>
                     <th>Facebook</th>
                     <th>Telegram</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Редагувати</th>
+                    <th>Видалити</th>
                 </tr>
             </thead>
             <tbody>
