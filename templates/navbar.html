@@ -3,20 +3,20 @@
   <ul class="nav navbar-nav">
      {% if user.is_active %}
          <li class="nav-item">
-           <a class="nav-link" href="/studio/">Studio<span class="sr-only">(current)</span></a>
+           <a class="nav-link" href="/studio/">Студія<span class="sr-only">(current)</span></a>
          </li>
          <li class="nav-item">
            <a class="nav-link" href="/logout/">Вихід<span class="sr-only">(current)</span></a>
          </li>
         <li class="nav-item">
-            <a class="nav-link">User: {{user.username}}</a>
+            <a class="nav-link">Користувач: {{user.username}}</a>
         </li>
     {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="/signup/">Регистрация<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/signup/">Зареєструватися<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/login/">Вход</a>
+          <a class="nav-link" href="/login/">Вхід</a>
          </li>
     {% endif %}
   </ul>
