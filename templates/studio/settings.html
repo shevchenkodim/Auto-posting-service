@@ -2,7 +2,62 @@
 {% load staticfiles %}
 
 {% block content %}
+<div class="portlet-body">
+    <div class="row mb-3">
+        <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
+        <input type="hidden" id="url" value="{% url 'studio:saveprofile' %}"/>
+        <div class="col-6">
+            <h3>Ваш акаунт</h3>
+            <div class="img d-flex justify-content-center">
+                <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% endif %}" alt="..." class="rounded" height="160" width="auto">
+            </div>
+            <form enctype="multipart/form-data">
+              <div class="form-group ">
+                <label for="exampleFormControlFile1">Виберіть фото профілю</label>
+                <input type="file" class="form-control-file" id="icon">
+              </div>
+            </form>
+            <div class="form-label-group">
+                <input placeholder="Email Address" id="account_email" name="account[email]" type="email" class="form-control" value="{{ user.email }}">
+                <label for="account_email"><span class="text-danger">Email</span> Address</label>
+            </div>
+
+        </div>
+        <div class="col-5">
+            <h3>Персональні дані</h3>
+            <p><b>Останній вхід</b> {{ user.last_login }}</p>
+            <br>
+            <h5>Ім’я</h5>
+            <input type="name" id="first_name" value="{{ user.first_name }}" class="form-control form-control-sm" placeholder="">
+            <br>
+            <h5>Прізвище</h5>
+            <input type="name" id="last_name" value="{{ user.last_name }}" class="form-control form-control-sm" placeholder="">
+            <div class="mt-4 d-flex justify-content-center">
+                <button type="submit" class="save-profile btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Save change</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body iframe-text">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 {% endblock content %}
 
 {% block page_js %}
+    <script type="text/javascript" src="{% static "js/studio_save_profile.js" %}"></script>
 {% endblock page_js %}
