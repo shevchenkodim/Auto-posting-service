@@ -6,17 +6,17 @@
            <a class="nav-link" href="{% url 'studio:studio' %}">Студія<span class="sr-only">(current)</span></a>
          </li>
          <li class="nav-item">
-           <a class="nav-link" href="/logout/">Вихід<span class="sr-only">(current)</span></a>
+           <a class="nav-link" href="{% url 'first_page:logout' %}">Вихід<span class="sr-only">(current)</span></a>
          </li>
         <li class="nav-item">
             <a class="nav-link">Користувач: {{user.username}}</a>
         </li>
     {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="/signup/">Зареєструватися<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{% url 'first_page:register_page' %}">Зареєструватися<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/login/">Вхід</a>
+          <a class="nav-link" href="{% url 'first_page:login_page' %}">Вхід</a>
          </li>
     {% endif %}
   </ul>
