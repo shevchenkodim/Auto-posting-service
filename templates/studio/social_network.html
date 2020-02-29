@@ -2,8 +2,127 @@
 {% load staticfiles %}
 
 {% block content %}
-    <h5>Social Network</h5>
+<h1>Налаштування</h1><hr>
+<div class="d-flex justify-content-center">
+    <h3>Соціальні мережі</h3>
+</div>
+<div class="d-flex justify-content-center mt-2">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Telegram</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Facebook</a>
+        </li>
+    </ul>
+</div>
+<div class="row d-flex justify-content-center mb-3">
+    <div class="col-6">
+        <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <i>Для того щоб користуватися постингом в телеграм
+                додайте нашого бота <b>"auto_posting_admin_bot"</b> в Адміністратори
+                а тільки після цього додайте свій канал до автопостингу.</i>
+
+                <hr>
+                <div class="name_channel">
+                    <h5>Назва каналу</h5>
+                    <input id="channel" class="form-control" type="text">
+                </div>
+                <input type="hidden" id="url_telegram" value="{% url 'studio:settingscreatetelegram' %}"/>
+                <input type="hidden" id="url_telegram_delete" value="{% url 'studio:settingsdeletetelegram' %}"/>
+                <div class="mt-3">
+                    <button type="button" class="telegram btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Додати на перевірку</button>
+                </div>
+                <div class="list mt-2 mt-2">
+                    <table class="table table-striped table-bordered mt-2" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Назва каналу</th>
+                                <th>Статус</th>
+                                <th class="d-flex justify-content-center">Видалити</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for telegram in telegram_acc %}
+                            <tr id="{{telegram.id}}">
+                                <td>{{telegram.name_channel}}</td>
+                                <td>{{telegram.connect_result}}</td>
+                                <td class="d-flex justify-content-center"><div class="">
+                                    <a class="telegram-delete btn btn-primary" id="{{telegram.id}}" href="#" role="button"><i class="fas fa-trash"></i></a>
+                                </div></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <hr>
+                <div class="login">
+                    <h5>Логін</h5>
+                    <input id="login" class="form-control" type="text">
+                </div>
+                <div class="password">
+                    <h5>Пароль</h5>
+                    <input id="password" class="form-control" type="password">
+                </div>
+                <input type="hidden" id="url_facebook" value="{% url 'studio:settingscreatefacebook' %}"/>
+                <input type="hidden" id="url_facebook_delete" value="{% url 'studio:settingsdeletefacebook' %}"/>
+                <div class="mt-3">
+                    <button type="button" class="facebook btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Додати на перевірку</button>
+                </div>
+                <div class="list mt-2 mt-2">
+                    <table class="table table-striped table-bordered mt-2" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Логін</th>
+                                <th>Статус</th>
+                                <th class="d-flex justify-content-center">Видалити</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for facebook in facebook_acc %}
+                            <tr id="{{facebook.id}}">
+                                <td>{{facebook.login}}</td>
+                                <td>{{facebook.connect_result}}</td>
+                                <td class="d-flex justify-content-center"><div class="">
+                                    <a class="facebook-delete btn btn-primary" id="{{facebook.id}}" href="#" role="button"><i class="fas fa-trash"></i></a>
+                                </div></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body iframe-text">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
 
 {% block page_js %}
+    <script type="text/javascript" src="{% static "js/studio_delete_facebook.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/studio_delete_telegram.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/studio_create_telegram.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/studio_create_facebook.js" %}"></script>
 {% endblock page_js %}

@@ -46,7 +46,9 @@ class SocialNetworkPage(TemplateView):
     template_name = "studio/social_network.html"
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        telegram_acc = SocialNetworkTelegram.objects.filter(user=request.user)
+        facebook_acc = SocialNetworkFacebook.objects.filter(user=request.user)
+        return render(request, self.template_name, {'telegram_acc':telegram_acc, 'facebook_acc':facebook_acc})
 
 
 class Tasks(TemplateView):
@@ -161,9 +163,7 @@ class Settings(TemplateView):
     template_name = "studio/settings.html"
 
     def get(self, request, *args, **kwargs):
-        telegram_acc = SocialNetworkTelegram.objects.filter(user=request.user)
-        facebook_acc = SocialNetworkFacebook.objects.filter(user=request.user)
-        return render(request, self.template_name, {'telegram_acc':telegram_acc, 'facebook_acc':facebook_acc})
+        return render(request, self.template_name)
 
 
 def createtelegram(request):

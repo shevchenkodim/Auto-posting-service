@@ -14,9 +14,9 @@ urlpatterns = [
     path('tasks/delete',             views.taskdelete,      name="taskdelete"),
     path('statistics/',              Statistics.as_view(),  name="statistics"),
     path('settings/',                Settings.as_view(),    name="settings"),
-    path('settings/create/telegram', views.createtelegram,  name="settingscreatetelegram"),
-    path('settings/delete/telegram', views.deletetelegram,  name="settingsdeletetelegram"),
-    path('settings/create/facebbok', views.createfacebook,  name="settingscreatefacebook"),
-    path('settings/delete/facebbok', views.deletefacebook,  name="settingsdeletefacebook"),
     path('social-network',           SocialNetworkPage.as_view(), name="social_network_page"),
+    path('social-network/create/telegram', views.createtelegram,  name="settingscreatetelegram"),
+    path('social-network/delete/telegram', views.deletetelegram,  name="settingsdeletetelegram"),
+    path('social-network/create/facebbok', views.createfacebook,  name="settingscreatefacebook"),
+    path('social-network/delete/facebbok', views.deletefacebook,  name="settingsdeletefacebook"),
 ]
