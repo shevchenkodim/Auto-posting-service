@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Studio, Tasks, Taskscreate, Taskupdate, Statistics, Settings, SocialNetworkPage
+from .views import Studio, Tasks, Taskscreate, Taskupdate, Statistics, Settings, SocialNetworkPage, SocialNetworkFacebookPage
 from . import views
 
 app_name = 'studio'
@@ -17,6 +17,7 @@ urlpatterns = [
     path('social-network',           SocialNetworkPage.as_view(), name="social_network_page"),
     path('social-network/create/telegram', views.createtelegram,  name="settingscreatetelegram"),
     path('social-network/delete/telegram', views.deletetelegram,  name="settingsdeletetelegram"),
-    path('social-network/create/facebbok', views.createfacebook,  name="settingscreatefacebook"),
-    path('social-network/delete/facebbok', views.deletefacebook,  name="settingsdeletefacebook"),
+    path('social-network/facebook',  SocialNetworkFacebookPage.as_view(), name="social_network_facebook"),
+    path('social-network/create/facebook', views.createfacebook,  name="settingscreatefacebook"),
+    path('social-network/delete/facebook', views.deletefacebook,  name="settingsdeletefacebook"),
 ]
