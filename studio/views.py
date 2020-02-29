@@ -57,6 +57,11 @@ class SocialNetworkFacebookPage(TemplateView):
         facebook_acc = SocialNetworkFacebook.objects.filter(user=request.user)
         return render(request, self.template_name, {'facebook_acc':facebook_acc})
 
+
+class Help(TemplateView):
+    template_name = "studio/help.html"
+
+
 class Tasks(TemplateView):
     template_name = "studio/tasks.html"
 
