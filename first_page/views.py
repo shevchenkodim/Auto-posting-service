@@ -1,7 +1,10 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from django.http import JsonResponse
 from studio.models import Profile
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 
 class FirstPage(TemplateView):
@@ -18,19 +21,20 @@ class LoginPage(TemplateView):
 
 def register(request):
     if request.method == 'POST':
-        form_regist = RegisterForm(request.POST)
-        if form_regist.is_valid():
-            user = form_regist.save()
-            first_name = form_regist.cleaned_data.get('first_name')
-            last_name = form_regist.cleaned_data.get('last_name')
-            country = form_regist.cleaned_data.get('country')
-            accept_license = form_regist.cleaned_data.get('accept_license')
-            username = form_regist.cleaned_data.get('username')
-            password = form_regist.cleaned_data.get('password')
+        try:
+            username = request.POST.get('username', '')
+            first_name = request.POST.get('first_name', '')
+            last_name = request.POST.get('last_name', '')
+            email = request.POST.get('email', '')
+            password = request.POST.get('password', '')
+            user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
+            user.save()
             login(request, user)
-            return redirect('/')
-        else:
-            return HttpResponse("Your account is not registered!")
+            response_data = {'_code' : 0, '_status' : 'ok' }
+        except Exception as e:
+            response_data = {'_code' : 1, '_status' : 'no' }
+
+        return JsonResponse(response_data)
 
 
 def authenticate_user(request):

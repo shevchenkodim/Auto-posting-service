@@ -1,1 +1,56 @@
-<h5>register</h5>
+{% extends "signup_login_page_base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<nav class="navbar navbar-static-top navbar-light bg-faded justify-content-start">
+  <a href="{% url 'first_page:first_page' %}" class="navbar-brand">Auto posting</a>
+  <ul class="nav navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'first_page:login_page' %}">Вхід</a>
+    </li>
+  </ul>
+</nav>
+
+<input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
+<input type="hidden" id="url_register" value="{% url 'first_page:register_user' %}"/>
+<h5 class="text-center">Реєстрація на сайті</h5>
+<div class="row justify-content-center">
+    <div class="col-4">
+        <div class="form-group">
+            <label for="username">Ваш логін</label>
+            <input class="form-control" type="text" name="username" placeholder="Ваш логін" id="username">
+        </div>
+
+        <div class="form-group">
+            <label for="first_name">Ім'я</label>
+            <input class="form-control" type="text" name="first_name" placeholder="Ім'я" id="first_name">
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Прізвище</label>
+            <input class="form-control" type="text" name="last_name" placeholder="Прізвище" id="last_name">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Електронна почта</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="register-user btn btn-primary ">Зареєструватися</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="{% static "js/register.js" %}"></script>
+{% endblock %}
