@@ -29,9 +29,11 @@ def register(request):
             password = request.POST.get('password', '')
             user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
             user.save()
+            Profile.objects.create(user=user)
             login(request, user)
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:
+            print(e)
             response_data = {'_code' : 1, '_status' : 'no' }
 
         return JsonResponse(response_data)
