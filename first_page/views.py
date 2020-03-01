@@ -27,6 +27,11 @@ def register(request):
             last_name = request.POST.get('last_name', '')
             email = request.POST.get('email', '')
             password = request.POST.get('password', '')
+            users_list = User.objects.all()
+            for users in users_list:
+                if users.username == username:
+                    response_data = {'_code' : 1, '_status' : 'ok', '_error':'Користувач з таким логіном вже є. Виберіть інший!' }
+                    return JsonResponse(response_data)
             user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
             user.save()
             Profile.objects.create(user=user)

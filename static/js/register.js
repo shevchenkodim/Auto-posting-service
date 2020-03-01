@@ -44,7 +44,12 @@ $('.register-user').on('click', function(){
                     window.location.replace('/studio/');
                     }
                 else{
+                    $('#error').text(result._error);
                     $('.register-user').text("Error! Click again")
+                    function say() {
+                      $('.register-user').text("Зареєструватися")
+                    }
+                    setTimeout(say, 3000);
                     }
         });
 });
