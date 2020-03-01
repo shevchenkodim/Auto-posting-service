@@ -46,15 +46,18 @@ def register(request):
 
 def authenticate_user(request):
     if request.method == 'POST':
-        form_aut = AuthenticationForm(data=request.POST)
-        if form_aut.is_valid():
-            username = form_aut.cleaned_data.get('username')
-            password = form_aut.cleaned_data.get('password')
+        try:
+            username = request.POST.get('username', '')
+            password = request.POST.get('password', '')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('/')
-        else:
-            return HttpResponse("You're account is disabled")
+            response_data = {'_code' : 0, '_status' : 'ok' }
+        except Exception as e:
+            print(e)
+            response_data = {'_code' : 1, '_status' : 'ok', '_error':'Введено невірний логін або пароль!' }
+
+        return JsonResponse(response_data)
+
 
 
 def user_logout(request):
