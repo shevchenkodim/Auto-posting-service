@@ -1,7 +1,13 @@
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-static-top navbar-dark bg-dark d-flex align-items-center">
   <a href="{% url 'first_page:first_page' %}" class="navbar-brand">Auto posting</a>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Пошук" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Пошук</button>
-  </form>
+  <ul class="nav navbar-nav">
+      <div class="row">
+          <li class="nav-item mr-2">
+              <a href="{% url 'studio:settings' %}" class="text-light"> <i class="far fa-user"></i>&nbsp;{{ user.username }}&nbsp;</a>
+          </li>
+          <li class="nav-item mr-2">
+              <a href="{% url 'first_page:logout' %}" class="btn btn-sm btn-success " type="submit">Вихід</a>
+          </li>
+      </div>
+  </ul>
 </nav>
