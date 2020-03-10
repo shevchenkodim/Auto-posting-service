@@ -270,3 +270,8 @@ def deletelivejournal(request):
     except SocialNetworkLiveJournal.DoesNotExist:
         response_data = {'_code' : 1, '_status' : 'no' }
     return JsonResponse(response_data)
+
+
+def permission_denied(request):
+    data = {}
+    return render(request, '403.html', data, status=403)
