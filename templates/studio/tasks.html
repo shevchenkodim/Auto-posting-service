@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
-    <h1>Мои задания</h1><hr>
+    <h1>Мої завдання</h1><hr>
     <a class="btn btn-primary" href="{% url 'studio:taskcreate' %}" role="button"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Створити</a>
     <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
     <input type="hidden" id="url_delete_task" value="{% url 'studio:taskdelete' %}"/>

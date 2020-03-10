@@ -2,12 +2,18 @@
   <a href="{% url 'first_page:first_page' %}" class="navbar-brand">Auto posting</a>
   <ul class="nav navbar-nav">
       <div class="row">
+          {% if user.is_active %}
           <li class="nav-item mr-2">
               <a href="{% url 'studio:settings' %}" class="text-light"> <i class="far fa-user"></i>&nbsp;{{ user.username }}&nbsp;</a>
           </li>
           <li class="nav-item mr-2">
               <a href="{% url 'first_page:logout' %}" class="btn btn-sm btn-success " type="submit">Вихід</a>
           </li>
+          {% else %}
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="{% url 'first_page:login_page' %}">Вхід</a>
+           </li>
+          {% endif %}
       </div>
   </ul>
 </nav>
