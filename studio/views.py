@@ -4,14 +4,22 @@ from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkLiv
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
+from django.core.exceptions import PermissionDenied
 import datetime
 # Create your views here.
 
 class Studio(TemplateView):
     template_name = "studio/main.html"
 
+    def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+                    raise PermissionDenied
+        return render(request, self.template_name)
+
 
 def saveprofile(request):
+    if not self.request.user.is_authenticated:
+                raise PermissionDenied
     if request.method == 'POST':
         first_name = request.POST.get('first_name', '')
         last_name = request.POST.get('last_name', '')
@@ -46,6 +54,8 @@ class SocialNetworkPage(TemplateView):
     template_name = "studio/social_network.html"
 
     def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+                    raise PermissionDenied
         telegram_acc = SocialNetworkTelegram.objects.filter(user=request.user)
         return render(request, self.template_name, {'telegram_acc':telegram_acc})
 
@@ -53,6 +63,8 @@ class SocialNetworkLiveJournalPage(TemplateView):
     template_name = "studio/social_network_livejournal.html"
 
     def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+                    raise PermissionDenied
         livejournal_acc = SocialNetworkLiveJournal.objects.filter(user=request.user)
         return render(request, self.template_name, {'livejournal_acc':livejournal_acc})
 
@@ -65,6 +77,8 @@ class Tasks(TemplateView):
     template_name = "studio/tasks.html"
 
     def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+                    raise PermissionDenied
         posts = Post.objects.filter(user = request.user)
         return render(request, self.template_name, {'posts':posts})
 
@@ -73,6 +87,8 @@ class Taskscreate(TemplateView):
     template_name = "studio/task_create.html"
 
     def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+                    raise PermissionDenied
         telegrams = SocialNetworkTelegram.objects.filter(user=request.user)
         livejournal = SocialNetworkLiveJournal.objects.filter(user=request.user)
         date_posting = datetime.datetime.now()
@@ -83,6 +99,8 @@ class Taskupdate(TemplateView):
     template_name = "studio/task_update.html"
 
     def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+                    raise PermissionDenied
         post = Post.objects.get(pk=self.kwargs['pk'])
         telegrams = SocialNetworkTelegram.objects.filter(user=request.user)
         livejournal = SocialNetworkLiveJournal.objects.filter(user=request.user)
@@ -90,6 +108,8 @@ class Taskupdate(TemplateView):
 
 
 def taskupdatesave(request, pk):
+    if not self.request.user.is_authenticated:
+                raise PermissionDenied
     if request.method == 'POST':
         title        = request.POST.get('title','')
         text         = request.POST.get('text','')
@@ -124,6 +144,8 @@ def taskupdatesave(request, pk):
 
 
 def taskcreatenew(request):
+    if not self.request.user.is_authenticated:
+                raise PermissionDenied
     if request.method == 'POST':
         title        = request.POST.get('title','')
         text         = request.POST.get('text','')
@@ -150,6 +172,8 @@ def taskcreatenew(request):
 
 
 def taskdelete(request):
+    if not self.request.user.is_authenticated:
+                raise PermissionDenied
     if request.method == 'POST':
         id = request.POST.get('id', '')
     else:
@@ -168,15 +192,24 @@ def taskdelete(request):
 class Statistics(TemplateView):
     template_name = "studio/statistics.html"
 
+    def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+                    raise PermissionDenied
+        return render(request, self.template_name)
+
 
 class Settings(TemplateView):
     template_name = "studio/settings.html"
 
     def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+                    raise PermissionDenied
         return render(request, self.template_name)
 
 
 def createtelegram(request):
+    if not self.request.user.is_authenticated:
+                raise PermissionDenied
     if request.method == "POST":
         name_channel = '@' + request.POST.get('name_channel','')
         name         = SocialNetwork.objects.get(pk=2)
@@ -189,6 +222,8 @@ def createtelegram(request):
 
 
 def createlivejournal(request):
+    if not self.request.user.is_authenticated:
+                raise PermissionDenied
     if request.method == "POST":
         login    = request.POST.get('login','')
         password = request.POST.get('password','')
@@ -202,6 +237,8 @@ def createlivejournal(request):
 
 
 def deletetelegram(request):
+    if not self.request.user.is_authenticated:
+                raise PermissionDenied
     if request.method == 'POST':
         id = request.POST.get('id', '')
     else:
@@ -218,6 +255,8 @@ def deletetelegram(request):
 
 
 def deletelivejournal(request):
+    if not self.request.user.is_authenticated:
+                raise PermissionDenied
     if request.method == 'POST':
         id = request.POST.get('id', '')
     else:
