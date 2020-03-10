@@ -34,3 +34,16 @@ class UserTestCase(TestCase):
 
         if not result:
             raise Exception('User does not exists. Signup failed or something goes wrong')
+
+    def test_login_user(self):
+        user_name     = 'test_username'
+        user_password = 'test_password'
+        client = Client()
+
+        url = reverse('first_page:authenticate_user')
+        response = client.post(url, {
+            'username' : user_name,
+            'password' : user_password,
+            })
+
+        self.assertEqual(response.status_code, 200)
