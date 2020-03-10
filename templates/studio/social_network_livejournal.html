@@ -8,7 +8,7 @@
     <a class="nav-link" href="{% url 'studio:social_network_page' %}">Telegram</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="{% url 'studio:social_network_facebook' %}">Facebook</a>
+    <a class="nav-link active" href="{% url 'studio:social_network_livejournal' %}">LiveJournal</a>
   </li>
 </ul>
 <div class="row d-flex justify-content-center mb-3">
@@ -23,8 +23,8 @@
             <h5>Пароль</h5>
             <input id="password" class="form-control" type="password">
         </div>
-        <input type="hidden" id="url_facebook" value="{% url 'studio:settingscreatefacebook' %}"/>
-        <input type="hidden" id="url_facebook_delete" value="{% url 'studio:settingsdeletefacebook' %}"/>
+        <input type="hidden" id="url_facebook" value="{% url 'studio:settings_create_livejournal' %}"/>
+        <input type="hidden" id="url_facebook_delete" value="{% url 'studio:settings_delete_livejournal' %}"/>
         <div class="mt-3">
             <button type="button" class="facebook btn btn-primary"><i id="progress"  role="status" class="fi fi-check"></i>Додати на перевірку</button>
         </div>
@@ -38,12 +38,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for facebook in facebook_acc %}
-                    <tr id="{{facebook.id}}">
-                        <td>{{facebook.login}}</td>
-                        <td>{{facebook.connect_result}}</td>
+                    {% for livejournal in livejournal_acc %}
+                    <tr id="{{livejournal.id}}">
+                        <td>{{livejournal.login}}</td>
+                        <td>{{livejournal.connect_result}}</td>
                         <td class="d-flex justify-content-center"><div class="">
-                            <a class="facebook-delete btn btn-primary" id="{{facebook.id}}" href="#" role="button"><i class="fas fa-trash"></i></a>
+                            <a class="facebook-delete btn btn-primary" id="{{livejournal.id}}" href="#" role="button"><i class="fas fa-trash"></i></a>
                         </div></td>
                     </tr>
                     {% endfor %}

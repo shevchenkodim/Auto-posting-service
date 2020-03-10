@@ -49,10 +49,10 @@
             </select>
         </div>
         <div class="col-4 mt-2 ml-5">
-            <h5>Facebook</h5> <select class="file_id form-control" required id="id_file_id_f" name="">
-                <option id="file_name" value="{{ post.sn_facebook.id }}" selected>{{ post.sn_facebook.login }}</option>
-                {% for facebook in facebooks %}
-                    <option id="{{facebook.id}}" value="{{facebook.id}}">{{facebook.login}}</option>
+            <h5>LiveJournal</h5> <select class="file_id form-control" required id="id_file_id_lj" name="">
+                <option id="file_name" value="{{ post.sn_lj.id }}" selected>{{ post.sn_lj.login }}</option>
+                {% for livejournal in livejournals %}
+                    <option id="{{livejournal.id}}" value="{{livejournal.id}}">{{livejournal.login}}</option>
                 {% endfor %}
             </select>
         </div>

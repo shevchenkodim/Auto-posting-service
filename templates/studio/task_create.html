@@ -40,10 +40,10 @@
             </select>
         </div>
         <div class="col-4 mt-2 ml-5">
-            <h5>Facebook</h5> <select class="file_id form-control" required id="id_file_id_f" name="">
+            <h5>LiveJournal</h5> <select class="file_id form-control" required id="id_file_id_lj" name="">
                 <option id="file_name" value="" selected>---------------</option>
-                {% for facebook in facebooks %}
-                    <option id="{{facebook.id}}" value="{{facebook.id}}">{{facebook.login}}</option>
+                {% for livejournal in livejournals %}
+                    <option id="{{livejournal.id}}" value="{{livejournal.id}}">{{livejournal.login}}</option>
                 {% endfor %}
             </select>
         </div>

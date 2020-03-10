@@ -15,8 +15,8 @@ $('.updtaskpost').on('click', function(){
     formData.append('date_posting', date_posting);
     telegram = $('#id_file_id_t').val();
     formData.append('telegram', telegram);
-    facebook = $('#id_file_id_f').val();
-    formData.append('facebook', facebook);
+    livejournal = $('#id_file_id_lj ').val();
+    formData.append('livejournal', livejournal);
     csrf_token =  $('input[name="csrf_token"]').attr('value');
     formData.append('csrfmiddlewaretoken', csrf_token);
     postUrl = $('#url_update_task').val();

@@ -12,7 +12,7 @@ class SocialNetwork(models.Model):
     def __str__(self):
         return self.name
 
-class SocialNetworkFacebook(models.Model):
+class SocialNetworkLiveJournal(models.Model):
     user         = models.ForeignKey(
                                     User,
                                     on_delete=models.CASCADE,
@@ -44,7 +44,7 @@ class Post(models.Model):
                                     User,
                                     verbose_name="Користувач",
                                     on_delete=models.CASCADE)
-    sn_facebook      = models.ForeignKey(SocialNetworkFacebook, null=True, blank=True, on_delete=models.CASCADE)
+    sn_lj            = models.ForeignKey(SocialNetworkLiveJournal, null=True, blank=True, on_delete=models.CASCADE)
     sn_telegram      = models.ForeignKey(SocialNetworkTelegram, null=True, blank=True, on_delete=models.CASCADE)
     title            = models.CharField("Заголовок", max_length=100)
     text             = models.TextField("Текст поста")
