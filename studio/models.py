@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 import datetime
 User = get_user_model()
 
@@ -56,6 +57,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Statistic(models.Model):
+    date = models.DateField('Дата', default=timezone.now)
+    post_create = models.IntegerField('Создано', default=0)
+
+    def __str__(self):
+        return self.post.title
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
