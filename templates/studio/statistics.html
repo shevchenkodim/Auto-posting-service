@@ -3,6 +3,9 @@
 
 {% block content %}
     <h1>Статистика</h1><hr>
+    {% for statistic in statistic_list %}
+         {{ statistic.date }}: {{ statistic.post_create }}
+    {% endfor %}
 {% endblock content %}
 {% block page_js %}
 

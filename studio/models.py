@@ -60,11 +60,12 @@ class Post(models.Model):
 
 
 class Statistic(models.Model):
+    user = models.ForeignKey(User, verbose_name="Користувач", on_delete=models.CASCADE)
     date = models.DateField('Дата', default=timezone.now)
     post_create = models.IntegerField('Создано', default=0)
 
     def __str__(self):
-        return self.post.title
+        return str(self.date)
 
 
 class Profile(models.Model):

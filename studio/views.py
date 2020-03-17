@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkLiveJournal, Profile
+from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkLiveJournal, Profile, Statistic
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.core.exceptions import PermissionDenied
+from django.utils import timezone
 import datetime
 # Create your views here.
 
@@ -144,7 +145,7 @@ def taskupdatesave(request, pk):
 
 
 def taskcreatenew(request):
-    if not self.request.user.is_authenticated:
+    if not request.user.is_authenticated:
                 raise PermissionDenied
     if request.method == 'POST':
         title        = request.POST.get('title','')
@@ -163,6 +164,14 @@ def taskcreatenew(request):
         f            = file.get('file')
         try:
             task     = Post.objects.create(user=request.user, sn_lj=livejournal, sn_telegram=telegram, title=title, text=text, images=f, date_posting=date_posting, facebook_result=False, telegram_result=False)
+            obj, created = Statistic.objects.get_or_create(
+                defaults={
+                    "user":request.user,
+                    "date": timezone.now() },
+                date=timezone.now(), user=request.user)
+            obj.post_create += 1
+            obj.save(update_fields=['post_create'])
+            print(obj)
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:
             response_data = {'_code' : 1, '_status' : 'no' }
@@ -172,7 +181,7 @@ def taskcreatenew(request):
 
 
 def taskdelete(request):
-    if not self.request.user.is_authenticated:
+    if not request.user.is_authenticated:
                 raise PermissionDenied
     if request.method == 'POST':
         id = request.POST.get('id', '')
@@ -195,7 +204,9 @@ class Statistics(TemplateView):
     def get(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
                     raise PermissionDenied
-        return render(request, self.template_name)
+        statistic_list = Statistic.objects.filter(user=self.request.user)
+        print(statistic_list)
+        return render(request, self.template_name, {'statistic_list':statistic_list})
 
 
 class Settings(TemplateView):
