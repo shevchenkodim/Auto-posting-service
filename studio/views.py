@@ -164,14 +164,18 @@ def taskcreatenew(request):
         f            = file.get('file')
         try:
             task     = Post.objects.create(user=request.user, sn_lj=livejournal, sn_telegram=telegram, title=title, text=text, images=f, date_posting=date_posting, facebook_result=False, telegram_result=False)
-            obj, created = Statistic.objects.get_or_create(
-                defaults={
-                    "user":request.user,
-                    "date": timezone.now() },
-                date=timezone.now(), user=request.user)
-            obj.post_create += 1
-            obj.save(update_fields=['post_create'])
-            print(obj)
+            try:
+                staistic = Statistic.objects.get(user=request.user, date=timezone.now())
+            except Statistic.DoesNotExist:
+                staistic = None
+            if staistic == None:
+                obj = Statistic.objects.create(user=request.user, date=timezone.now())
+                obj.post_create += 1
+                obj.save(update_fields=['post_create'])
+            else:
+                staistic.post_create += 1
+                staistic.save(update_fields=['post_create'])
+
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:
             response_data = {'_code' : 1, '_status' : 'no' }
