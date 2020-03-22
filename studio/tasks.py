@@ -40,27 +40,30 @@ def live_journal_task(title, text, username, password, livejournal_id, post_id):
 
 @app.task
 def telegram_task(text, channel_name, image_path, telegram_id, post_id):
-    administrator = False
-    users = bot.get_chat_administrators(channel_name)
-    for user in users:
-        if user.user.username == 'auto_posting_adminbot':
-            if user.status == 'administrator':
-                administrator = True
-                telegram = SocialNetworkTelegram.objects.get(id=telegram_id)
-                telegram.connect_result = True
-                telegram.save()
+    try:
+        administrator = False
+        users = bot.get_chat_administrators(channel_name)
+        for user in users:
+            if user.user.username == 'auto_posting_adminbot':
+                if user.status == 'administrator':
+                    administrator = True
+                    telegram = SocialNetworkTelegram.objects.get(id=telegram_id)
+                    telegram.connect_result = True
+                    telegram.save()
+                else:
+                    administrator = False
+
+        post = Post.objects.get(id=post_id)
+        if administrator == True:
+            if image_path != '':
+                PHOTO = open(image_path, 'rb')
+                bot.send_photo(channel_name, PHOTO, text)
             else:
-                administrator = False
+                bot.send_message(channel_name, text)
 
-    post = Post.objects.get(id=post_id)
-    if administrator == True:
-        if image_path != '':
-            PHOTO = open(image_path, 'rb')
-            bot.send_photo(channel_name, PHOTO, text)
-        else:
-            bot.send_message(channel_name, text)
-
-    post.telegram_result = True
-    post.save()
+        post.telegram_result = True
+        post.save()
+    except Exception as exc:
+        raise self.retry(exc=exc, countdown=60, max_retries=3)
 
     return True
