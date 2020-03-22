@@ -20,9 +20,9 @@ from django.urls import path, include
 from first_page import views
 
 urlpatterns = [
-    path('admin/',   admin.site.urls),
-    path('',         include('first_page.urls')),
-    path('studio/',  include('studio.urls')),
+    path('admin/', admin.site.urls),
+    path('', include('first_page.urls')),
+    path('studio/', include('studio.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

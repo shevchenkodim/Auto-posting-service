@@ -15,7 +15,7 @@ class FrontendTestCase(TestCase):
 
 class UserTestCase(TestCase):
     def test_singup_user(self):
-        user_name     = 'test_username'
+        user_name = 'test_username'
         user_password = 'test_password'
         client = Client()
 
@@ -36,7 +36,7 @@ class UserTestCase(TestCase):
             raise Exception('User does not exists. Signup failed or something goes wrong')
 
     def test_login_user(self):
-        user_name     = 'test_username'
+        user_name = 'test_username'
         user_password = 'test_password'
         client = Client()
 
