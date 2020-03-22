@@ -186,9 +186,14 @@ def taskcreatenew(request):
             else:
                 staistic.post_create += 1
                 staistic.save(update_fields=['post_create'])
-                
+
             if livejournal != None:
-                result = live_journal_task.apply_async((task.title, task.text, livejournal.login, livejournal.password, livejournal.id, task.id), eta=my_date)
+                post_text = task.text
+                if task.images != None:
+                    image_str = '<div style="text-align:center"><img src="http://127.0.0.1:8000'+ task.images.url +'" width="500" height="auto"/></div><br>'
+                    new_text = image_str + task.text
+                    post_text = new_text
+                result = live_journal_task.apply_async((task.title, post_text, livejournal.login, livejournal.password, livejournal.id, task.id), eta=my_date)
                 task.live_journal_task_id = result.id
                 task.save()
 
