@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
-from .tasks import live_journal_task
+from .tasks import live_journal_task, telegram_task
+from django.conf import settings
 import dateutil.parser
 import datetime
 import pytz
@@ -195,6 +196,12 @@ def taskcreatenew(request):
                     post_text = new_text
                 result = live_journal_task.apply_async((task.title, post_text, livejournal.login, livejournal.password, livejournal.id, task.id), eta=my_date)
                 task.live_journal_task_id = result.id
+                task.save()
+
+            if telegram != None:
+                image_path = str(task.images)
+                result_telegram = telegram_task.apply_async((task.text, telegram.name_channel, image_path, telegram.id,  task.id), eta=my_date)
+                task.telegram_task_id = result_telegram.id
                 task.save()
 
             response_data = {'_code' : 0, '_status' : 'ok' }
