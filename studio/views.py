@@ -7,6 +7,8 @@ from django.views.generic import TemplateView
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from .tasks import live_journal_task, telegram_task
+#from celery.task.control import revoke
+from celery.result import AsyncResult
 from django.conf import settings
 import dateutil.parser
 import datetime
@@ -121,6 +123,11 @@ def taskupdatesave(request, pk):
         title = request.POST.get('title','')
         text = request.POST.get('text','')
         date_posting = request.POST.get('date_posting','')
+
+        my_date = dateutil.parser.parse(date_posting)
+        indy = pytz.timezone("Europe/Kiev")
+        my_date = indy.localize(my_date)
+
         if request.POST.get('telegram','') == '':
             telegram = None
         else:
@@ -132,17 +139,53 @@ def taskupdatesave(request, pk):
         file = request.FILES
         f = file.get('file')
         try:
-            task = Post.objects.get(user=request.user, pk = pk)
+            task = Post.objects.get(user=request.user, pk=pk)
             task.sn_lj=livejournal
             task.sn_telegram=telegram
             task.title=title
             task.text=text
             if f != None:
                 task.images=f
-            task.date_posting=date_posting
+            task.date_posting=my_date
             task.live_journal_result=False
             task.telegram_result=False
             task.save()
+
+            try:
+                t = AsyncResult(id=task.telegram_task_id)
+                res = t.revoke(terminate=True)
+                print(res)
+            except Exception as e:
+                print(e)
+            try:
+                t = AsyncResult(id=task.live_journal_task_id)
+                res = t.revoke(terminate=True)
+                print(res)
+            except Exception as e:
+                print(e)
+
+            if livejournal != None:
+                try:
+                    post_text = task.text
+                    if task.images != '':
+                        image_str = '<div style="text-align:center"><img src="http://127.0.0.1:8000'+ task.images.url +'" width="500" height="auto"/></div><br>'
+                        new_text = image_str + task.text
+                        post_text = new_text
+                    result = live_journal_task.apply_async((task.title, post_text, livejournal.login, livejournal.password, livejournal.id, task.id), eta=my_date)
+                    task.live_journal_task_id = result.id
+                    task.save()
+                except Exception as e:
+                    print(e)
+
+            if telegram != None:
+                try:
+                    image_path = str(task.images)
+                    result_telegram = telegram_task.apply_async((task.text, telegram.name_channel, image_path, telegram.id,  task.id), eta=my_date)
+                    task.telegram_task_id = result_telegram.id
+                    task.save()
+                except Exception as e:
+                    print(e)
+
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:
             response_data = {'_code' : 1, '_status' : 'no' }

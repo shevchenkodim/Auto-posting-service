@@ -7,8 +7,8 @@ import time
 BOT_TOKEN = "1087230616:AAGbBsbsr347z5MpX65XmjgZFsbBKxaYdRE"
 bot = telebot.TeleBot(BOT_TOKEN)
 
-@app.task
-def live_journal_task(title, text, username, password, livejournal_id, post_id):
+@app.task(bind=True)
+def live_journal_task(self, title, text, username, password, livejournal_id, post_id):
     try:
         ljsrv = xmlrpclib.ServerProxy(r"http://www.livejournal.com/interface/xmlrpc")
         curtime = time.localtime()
@@ -27,19 +27,20 @@ def live_journal_task(title, text, username, password, livejournal_id, post_id):
          }
         response = ljsrv.LJ.XMLRPC.postevent(data)
 
-        post = Post.objects.get(id=post_id)
-        post.live_journal_result = True
-        post.save()
         livejournal = SocialNetworkLiveJournal.objects.get(id=livejournal_id)
         livejournal.connect_result = True
         livejournal.save()
+        post = Post.objects.get(id=post_id)
+        post.live_journal_result = True
+        post.save()
+
     except Exception as exc:
         raise self.retry(exc=exc, countdown=60, max_retries=3)
     return response
 
 
-@app.task
-def telegram_task(text, channel_name, image_path, telegram_id, post_id):
+@app.task(bind=True)
+def telegram_task(self, text, channel_name, image_path, telegram_id, post_id):
     try:
         administrator = False
         users = bot.get_chat_administrators(channel_name)
@@ -61,8 +62,8 @@ def telegram_task(text, channel_name, image_path, telegram_id, post_id):
             else:
                 bot.send_message(channel_name, text)
 
-        post.telegram_result = True
-        post.save()
+            post.telegram_result = True
+            post.save()
     except Exception as exc:
         raise self.retry(exc=exc, countdown=60, max_retries=3)
 
