@@ -6,8 +6,10 @@ from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
-from .tasks import my_task
+from .tasks import live_journal_task
+import dateutil.parser
 import datetime
+import pytz
 # Create your views here.
 
 class Studio(TemplateView):
@@ -137,7 +139,7 @@ def taskupdatesave(request, pk):
             if f != None:
                 task.images=f
             task.date_posting=date_posting
-            task.facebook_result=False
+            task.live_journal_result=False
             task.telegram_result=False
             task.save()
             response_data = {'_code' : 0, '_status' : 'ok' }
@@ -154,10 +156,16 @@ def taskcreatenew(request):
         title = request.POST.get('title','')
         text = request.POST.get('text','')
         date_posting = request.POST.get('date_posting','')
+
+        my_date = dateutil.parser.parse(date_posting)
+        indy = pytz.timezone("Europe/Kiev")
+        my_date = indy.localize(my_date)
+
         if request.POST.get('telegram','') == '':
             telegram = None
         else:
             telegram = SocialNetworkTelegram.objects.get(pk=request.POST.get('telegram',''))
+
         if request.POST.get('livejournal','') == '':
             livejournal = None
         else:
@@ -166,7 +174,7 @@ def taskcreatenew(request):
         file = request.FILES
         f = file.get('file')
         try:
-            task = Post.objects.create(user=request.user, sn_lj=livejournal, sn_telegram=telegram, title=title, text=text, images=f, date_posting=date_posting, facebook_result=False, telegram_result=False)
+            task = Post.objects.create(user=request.user, sn_lj=livejournal, sn_telegram=telegram, title=title, text=text, images=f, date_posting=my_date, live_journal_result=False, telegram_result=False)
             try:
                 staistic = Statistic.objects.get(user=request.user, date=timezone.now())
             except Statistic.DoesNotExist:
@@ -178,6 +186,11 @@ def taskcreatenew(request):
             else:
                 staistic.post_create += 1
                 staistic.save(update_fields=['post_create'])
+                
+            if livejournal != None:
+                result = live_journal_task.apply_async((task.title, task.text, livejournal.login, livejournal.password, livejournal.id, task.id), eta=my_date)
+                task.live_journal_task_id = result.id
+                task.save()
 
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 import datetime
+import uuid
 User = get_user_model()
 
 
@@ -43,8 +44,10 @@ class Post(models.Model):
     images = models.ImageField("Картинка", upload_to=settings.MEDIA_ROOT, blank=True, null=True)
     date_posting = models.DateTimeField("Дата час коли викласти", blank=True, null=True)
     date_post_create = models.DateTimeField("Дата создания", auto_now_add=True, blank=True, null=True)
-    facebook_result = models.BooleanField(null=False, default=False)
+    live_journal_result = models.BooleanField(null=False, default=False)
     telegram_result = models.BooleanField(null=False, default=False)
+    telegram_task_id = models.UUIDField(default=uuid.uuid4)
+    live_journal_task_id = models.UUIDField(default=uuid.uuid4)
 
     def __str__(self):
         return self.title

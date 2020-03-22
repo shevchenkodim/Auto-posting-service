@@ -4,7 +4,7 @@ import xmlrpc.client as xmlrpclib
 import time
 
 @app.task
-def live_journal_task(title, text, username, password):
+def live_journal_task(title, text, username, password, livejournal_id, post_id):
     ljsrv = xmlrpclib.ServerProxy(r"http://www.livejournal.com/interface/xmlrpc")
     curtime = time.localtime()
 
@@ -22,6 +22,13 @@ def live_journal_task(title, text, username, password):
      }
 
     response = ljsrv.LJ.XMLRPC.postevent(data)
+    post = Post.objects.get(id=post_id)
+    post.live_journal_result = True
+    post.save()
+    livejournal = SocialNetworkLiveJournal.objects.get(id=livejournal_id)
+    livejournal.connect_result = True
+    livejournal.save()
+
     return response
 
 
