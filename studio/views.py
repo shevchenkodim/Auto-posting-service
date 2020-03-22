@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
+from .tasks import my_task
 import datetime
 # Create your views here.
 
@@ -19,7 +20,7 @@ class Studio(TemplateView):
 
 
 def saveprofile(request):
-    if not self.request.user.is_authenticated:
+    if not request.user.is_authenticated:
                 raise PermissionDenied
     if request.method == 'POST':
         first_name = request.POST.get('first_name', '')
@@ -44,6 +45,8 @@ def saveprofile(request):
         if f != None:
             profile.image = f
         profile.save()
+        t = my_task.delay(3, 2)
+        print(t)
         response_data = {'_code' : 0, '_status' : 'ok' }
     else:
         response_data = {'_code' : 1, '_status' : 'no' }
@@ -109,7 +112,7 @@ class Taskupdate(TemplateView):
 
 
 def taskupdatesave(request, pk):
-    if not self.request.user.is_authenticated:
+    if not request.user.is_authenticated:
                 raise PermissionDenied
     if request.method == 'POST':
         title        = request.POST.get('title','')
@@ -223,7 +226,7 @@ class Settings(TemplateView):
 
 
 def createtelegram(request):
-    if not self.request.user.is_authenticated:
+    if not request.user.is_authenticated:
                 raise PermissionDenied
     if request.method == "POST":
         name_channel = '@' + request.POST.get('name_channel','')
@@ -237,7 +240,7 @@ def createtelegram(request):
 
 
 def createlivejournal(request):
-    if not self.request.user.is_authenticated:
+    if not request.user.is_authenticated:
                 raise PermissionDenied
     if request.method == "POST":
         login    = request.POST.get('login','')
@@ -252,7 +255,7 @@ def createlivejournal(request):
 
 
 def deletetelegram(request):
-    if not self.request.user.is_authenticated:
+    if not request.user.is_authenticated:
                 raise PermissionDenied
     if request.method == 'POST':
         id = request.POST.get('id', '')
@@ -270,7 +273,7 @@ def deletetelegram(request):
 
 
 def deletelivejournal(request):
-    if not self.request.user.is_authenticated:
+    if not request.user.is_authenticated:
                 raise PermissionDenied
     if request.method == 'POST':
         id = request.POST.get('id', '')

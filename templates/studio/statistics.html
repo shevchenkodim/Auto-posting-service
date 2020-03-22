@@ -7,46 +7,42 @@
          {{ statistic.date }}: {{ statistic.post_create }}<hr>
     {% endfor %}
     <script>
-window.onload = function () {
+        window.onload = function () {
 
-var options = {
-	animationEnabled: true,
-	title:{
-		text: "Statistics for all time"
-	},
-	axisX: {
-		valueFormatString: "MMM"
-	},
-	axisY: {
-		title: "Number of posts created",
-		prefix: "",
-		includeZero: false
-	},
-	data: [{
-		yValueFormatString: "$#,###",
-		xValueFormatString: "MMMM",
-		type: "spline",
-		dataPoints: [
-			{ x: new Date(2017, 0), y: 25060 },
-			{ x: new Date(2017, 1), y: 27980 },
-			{ x: new Date(2017, 2), y: 33800 },
-			{ x: new Date(2017, 3), y: 49400 },
-			{ x: new Date(2017, 4), y: 40260 },
-			{ x: new Date(2017, 5), y: 33900 },
-			{ x: new Date(2017, 6), y: 48000 },
-			{ x: new Date(2017, 7), y: 31500 },
-			{ x: new Date(2017, 8), y: 32300 },
-			{ x: new Date(2017, 9), y: 42000 },
-			{ x: new Date(2017, 10), y: 52160 },
-			{ x: new Date(2017, 11), y: 49400 }
-		]
-	}]
-};
-$("#chartContainer").CanvasJSChart(options);
-
-}
-</script>
-<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        var options = {
+        	animationEnabled: true,
+        	title:{
+        		text: "Statistics for all time"
+        	},
+        	axisX: {
+        		valueFormatString: "YYYY MMM DD"
+        	},
+        	axisY: {
+        		title: "Number of posts created",
+        		prefix: "",
+        		includeZero: false
+        	},
+        	data: [{
+        		yValueFormatString: "#,###",
+        		xValueFormatString: "YYYY MMM DD",
+        		type: "spline",
+        		dataPoints: [
+        			{ x: new Date(2017, 1, 2), y: 2 },
+                    { x: new Date(2017, 1, 12), y: 3 },
+                    { x: new Date(2017, 1, 14), y: 6 },
+                    { x: new Date(2017, 1, 15), y: 4 },
+                    { x: new Date(2017, 1, 17), y: 10 },
+                    { x: new Date(2017, 3, 18), y: 25 },
+                    { x: new Date(2017, 3, 19), y: 29 },
+                    { x: new Date(2017, 3, 23), y: 9 },
+                    { x: new Date(2017, 4, 25), y: 4 }
+        		]
+        	}]
+        };
+        $("#chartContainer").CanvasJSChart(options);
+        }
+    </script>
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 {% endblock content %}
 {% block page_js %}
 
