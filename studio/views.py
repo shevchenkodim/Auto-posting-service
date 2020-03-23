@@ -7,8 +7,7 @@ from django.views.generic import TemplateView
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from .tasks import live_journal_task, telegram_task
-#from celery.task.control import revoke
-from celery.result import AsyncResult
+from Auto_posting_service.celery import app
 from django.conf import settings
 import dateutil.parser
 import datetime
@@ -152,15 +151,11 @@ def taskupdatesave(request, pk):
             task.save()
 
             try:
-                t = AsyncResult(id=task.telegram_task_id)
-                res = t.revoke(terminate=True)
-                print(res)
+                app.control.revoke(task.telegram_task_id)
             except Exception as e:
                 print(e)
             try:
-                t = AsyncResult(id=task.live_journal_task_id)
-                res = t.revoke(terminate=True)
-                print(res)
+                app.control.revoke(task.live_journal_task_id)
             except Exception as e:
                 print(e)
 
