@@ -26,17 +26,14 @@ def live_journal_task(self, title, text, username, password, livejournal_id, pos
          'password': password,
          }
         response = ljsrv.LJ.XMLRPC.postevent(data)
-
-        livejournal = SocialNetworkLiveJournal.objects.get(id=livejournal_id)
-        livejournal.connect_result = True
-        livejournal.save()
-        post = Post.objects.get(id=post_id)
-        post.live_journal_result = True
-        post.save()
+        Post.objects.filter(id=post_id).update(live_journal_result=True)
+        SocialNetworkLiveJournal.objects.filter(id=livejournal_id).update(connect_result=True)
 
     except Exception as exc:
+        Post.objects.filter(id=post_id).update(live_journal_result=False)
+        SocialNetworkLiveJournal.objects.filter(id=livejournal_id).update(connect_result=False)
         raise self.retry(exc=exc, countdown=60, max_retries=3)
-    return response
+    return True
 
 
 @app.task(bind=True)
@@ -48,23 +45,21 @@ def telegram_task(self, text, channel_name, image_path, telegram_id, post_id):
             if user.user.username == 'auto_posting_adminbot':
                 if user.status == 'administrator':
                     administrator = True
-                    telegram = SocialNetworkTelegram.objects.get(id=telegram_id)
-                    telegram.connect_result = True
-                    telegram.save()
+                    SocialNetworkTelegram.objects.filter(id=telegram_id).update(connect_result=True)
                 else:
+                    SocialNetworkTelegram.objects.filter(id=telegram_id).update(connect_result=False)
                     administrator = False
 
-        post = Post.objects.get(id=post_id)
         if administrator == True:
             if image_path != '':
                 PHOTO = open(image_path, 'rb')
                 bot.send_photo(channel_name, PHOTO, text)
             else:
                 bot.send_message(channel_name, text)
+            Post.objects.filter(id=post_id).update(telegram_result=True)
 
-            post.telegram_result = True
-            post.save()
     except Exception as exc:
+        Post.objects.filter(id=post_id).update(telegram_result=False)
         raise self.retry(exc=exc, countdown=60, max_retries=3)
 
     return True
