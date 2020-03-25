@@ -274,8 +274,8 @@ class Statistics(TemplateView):
     def get(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
             raise PermissionDenied
-        statistic_list = Statistic.objects.filter(user=self.request.user)
-        print(statistic_list)
+        statistic_list = Statistic.objects.filter(user=self.request.user).order_by('date')
+        
         return render(request, self.template_name, {'statistic_list':statistic_list})
 
 
