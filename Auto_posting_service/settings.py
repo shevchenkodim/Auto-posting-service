@@ -125,8 +125,13 @@ USE_TZ = True
 LOGIN_REDIRECT_URL = '/studio/'
 LOGOUT_REDIRECT_URL = '/'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'email'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

@@ -65,6 +65,8 @@ class Statistic(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True)
+    is_verified = models.BooleanField('verified', default=False)
+    verification_uuid = models.UUIDField('Unique Verification UUID', default=uuid.uuid4)
 
     def __str__(self):
         return self.user.username

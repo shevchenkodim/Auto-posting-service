@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from studio.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from studio.views import send_verify_email
 
 
 class FirstPage(TemplateView):
@@ -34,7 +35,8 @@ def register(request):
                     return JsonResponse(response_data)
             user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
             user.save()
-            Profile.objects.create(user=user)
+            profile = Profile.objects.create(user=user)
+            send_verify_email(email=user.email, uuid=profile.verification_uuid)
             login(request, user)
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:

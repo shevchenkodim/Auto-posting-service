@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.urls import reverse
 from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkLiveJournal, Profile, Statistic
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -9,6 +10,7 @@ from django.utils import timezone
 from .tasks import live_journal_task, telegram_task
 from Auto_posting_service.celery import app
 from django.conf import settings
+from django.core.mail import send_mail
 import dateutil.parser
 import datetime
 import pytz
@@ -275,7 +277,7 @@ class Statistics(TemplateView):
         if not self.request.user.is_authenticated:
             raise PermissionDenied
         statistic_list = Statistic.objects.filter(user=self.request.user).order_by('date')
-        
+
         return render(request, self.template_name, {'statistic_list':statistic_list})
 
 
@@ -351,6 +353,28 @@ def deletelivejournal(request):
     except SocialNetworkLiveJournal.DoesNotExist:
         response_data = {'_code' : 1, '_status' : 'no' }
     return JsonResponse(response_data)
+
+
+def verify(request, uuid):
+    try:
+        user = Profile.objects.get(verification_uuid=uuid, is_verified=False)
+    except Profile.DoesNotExist:
+        raise Http404("User does not exist or is already verified")
+    user.is_verified = True
+    user.save()
+
+    return redirect(reverse('first_page:login_page'))
+
+
+def send_verify_email(email, uuid):
+        send_mail(
+            'Verify your AutoPosting account',
+            'Follow this link to verify your account: '
+            'http://localhost:8000/studio/verify/'+ str(uuid),
+            'djangos99@gmail.com',
+            [email],
+            fail_silently=False,
+        )
 
 
 def permission_denied(request):

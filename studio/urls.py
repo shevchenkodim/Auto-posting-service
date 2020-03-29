@@ -21,4 +21,5 @@ urlpatterns = [
     path('social-network/create/livejournal', views.createlivejournal,  name="settings_create_livejournal"),
     path('social-network/delete/livejournal', views.deletelivejournal,  name="settings_delete_livejournal"),
     path('help', Help.as_view(), name="help"),
+    path('verify/<uuid>', views.verify, name="user_verify"),
 ]
