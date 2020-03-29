@@ -52,6 +52,10 @@ def authenticate_user(request):
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
             user = authenticate(username=username, password=password)
+            profile = Profile.objects.get(user=user)
+            if profile.is_verified == False:
+                response_data = {'_code' : 1, '_status' : 'ok', '_error':'Підтвердіть свою почту щоб увійти!' }
+                return JsonResponse(response_data)
             login(request, user)
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:

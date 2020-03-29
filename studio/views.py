@@ -368,7 +368,7 @@ def verify(request, uuid):
 
 def send_verify_email(email, uuid):
         send_mail(
-            'Verify your AutoPosting account',
+            'Verify your Auto posting account',
             'Follow this link to verify your account: '
             'http://localhost:8000/studio/verify/'+ str(uuid),
             'djangos99@gmail.com',

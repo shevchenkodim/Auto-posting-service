@@ -30,7 +30,7 @@ $('.login-user').on('click', function(){
                     $('#error').text(result._error);
                     $('.login-user').text("Error! Click again")
                     function say() {
-                      $('.login-user').text("Зареєструватися")
+                      $('.login-user').text("Вхід")
                     }
                     setTimeout(say, 3000);
                     }
