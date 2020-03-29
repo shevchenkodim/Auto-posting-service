@@ -51,8 +51,6 @@ def saveprofile(request):
         if f != None:
             profile.image = f
         profile.save()
-        t = my_task.delay(3, 2)
-        print(t)
         response_data = {'_code' : 0, '_status' : 'ok' }
     else:
         response_data = {'_code' : 1, '_status' : 'no' }
