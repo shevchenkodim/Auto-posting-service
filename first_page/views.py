@@ -5,7 +5,8 @@ from django.http import JsonResponse
 from studio.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
-from studio.views import send_verify_email
+from studio.tasks import send_verify_email_task
+from datetime import datetime, timedelta
 
 
 class FirstPage(TemplateView):
@@ -36,8 +37,8 @@ def register(request):
             user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
             user.save()
             profile = Profile.objects.create(user=user)
-            send_verify_email(email=user.email, uuid=profile.verification_uuid)
-            login(request, user)
+            now = datetime.utcnow()
+            send_verify_email_task.apply_async((user.email, profile.verification_uuid), eta=now + timedelta(seconds=10))
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:
             print(e)

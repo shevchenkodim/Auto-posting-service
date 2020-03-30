@@ -1,11 +1,29 @@
 from Auto_posting_service.celery import app
 from .models import Post, SocialNetworkLiveJournal, SocialNetworkTelegram
+from django.core.mail import send_mail
 import xmlrpc.client as xmlrpclib
 import telebot
 import time
 
 BOT_TOKEN = "1087230616:AAGbBsbsr347z5MpX65XmjgZFsbBKxaYdRE"
 bot = telebot.TeleBot(BOT_TOKEN)
+
+
+@app.task(bind=True)
+def send_verify_email_task(self, email, uuid):
+    try:
+        send_mail(
+            'Verify your Auto posting account',
+            'Follow this link to verify your account: '
+            'http://localhost:8000/studio/verify/'+ str(uuid),
+            'djangos99@gmail.com',
+            [email],
+            fail_silently=False,
+        )
+    except Exception as exc:
+        raise self.retry(exc=exc, countdown=60, max_retries=3)
+    return True
+
 
 @app.task(bind=True)
 def live_journal_task(self, title, text, username, password, livejournal_id, post_id):

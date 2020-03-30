@@ -10,7 +10,6 @@ from django.utils import timezone
 from .tasks import live_journal_task, telegram_task
 from Auto_posting_service.celery import app
 from django.conf import settings
-from django.core.mail import send_mail
 import dateutil.parser
 import datetime
 import pytz
@@ -362,17 +361,6 @@ def verify(request, uuid):
     user.save()
 
     return redirect(reverse('first_page:login_page'))
-
-
-def send_verify_email(email, uuid):
-        send_mail(
-            'Verify your Auto posting account',
-            'Follow this link to verify your account: '
-            'http://localhost:8000/studio/verify/'+ str(uuid),
-            'djangos99@gmail.com',
-            [email],
-            fail_silently=False,
-        )
 
 
 def permission_denied(request):

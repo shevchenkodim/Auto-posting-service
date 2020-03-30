@@ -41,7 +41,7 @@ $('.register-user').on('click', function(){
             contentType: false,
         }).done(function(result) {
                 if (result._code == 0 ){
-                    window.location.replace('/studio/');
+                    window.location.replace('/login');
                     }
                 else{
                     $('#error').text(result._error);
