@@ -3,10 +3,10 @@
 
 {% block content %}
 <div class="portlet-body">
-    <div class="row mb-3">
+    <div class="row mb-3 justify-content-center">
         <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
         <input type="hidden" id="url" value="{% url 'studio:saveprofile' %}"/>
-        <div class="col-6">
+        <div class="col-4">
             <h3>Ваш акаунт</h3>
             <div class="img d-flex justify-content-center">
                 <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% endif %}" alt="..." class="rounded" height="160" width="auto">
@@ -23,7 +23,9 @@
             </div>
 
         </div>
-        <div class="col-5">
+        <div class="col-1">
+        </div>
+        <div class="col-4">
             <h3>Персональні дані</h3>
             <p><b>Останній вхід</b> {{ user.last_login }}</p>
             <br>
