@@ -9,6 +9,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 from .tasks import live_journal_task, telegram_task
 from Auto_posting_service.celery import app
+from django.contrib import messages
 from django.conf import settings
 import dateutil.parser
 import datetime
@@ -50,6 +51,7 @@ def saveprofile(request):
         if f != None:
             profile.image = f
         profile.save()
+        messages.success(request, 'Your profile has been successfully saved!')
         response_data = {'_code' : 0, '_status' : 'ok' }
     else:
         response_data = {'_code' : 1, '_status' : 'no' }
