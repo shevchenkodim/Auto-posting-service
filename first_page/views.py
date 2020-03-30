@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from studio.tasks import send_verify_email_task
 from datetime import datetime, timedelta
+from django.contrib import messages
 
 
 class FirstPage(TemplateView):
@@ -39,6 +40,7 @@ def register(request):
             profile = Profile.objects.create(user=user)
             now = datetime.utcnow()
             send_verify_email_task.apply_async((user.email, profile.verification_uuid), eta=now + timedelta(seconds=10))
+            messages.success(request, "A confirmation letter has been sent to your email! Check it out and you'll be able to move on to the studio.")
             response_data = {'_code' : 0, '_status' : 'ok' }
         except Exception as e:
             print(e)

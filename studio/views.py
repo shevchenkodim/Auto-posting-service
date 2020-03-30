@@ -361,7 +361,7 @@ def verify(request, uuid):
         raise Http404("User does not exist or is already verified")
     user.is_verified = True
     user.save()
-
+    messages.success(request, "Your email has been successfully verified!")
     return redirect(reverse('first_page:login_page'))
 
 

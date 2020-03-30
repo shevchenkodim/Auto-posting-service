@@ -11,7 +11,7 @@
     </li>
   </ul>
 </nav>
-
+{% include 'studio/messages.html' %}
 <input name="csrf_token" type="hidden" id="csrf_token" value="{{ csrf_token }}">
 <input type="hidden" id="url_register" value="{% url 'first_page:register_user' %}"/>
 <h5 class="text-center">Реєстрація на сайті</h5>
