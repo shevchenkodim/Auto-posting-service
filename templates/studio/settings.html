@@ -9,7 +9,7 @@
         <div class="col-4">
             <h3>Ваш акаунт</h3>
             <div class="img d-flex justify-content-center">
-                <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}https://lh3.googleusercontent.com/proxy/_3VXgLI6GkgBAu2uLKvXq4IV3MnNdeY7iOelIiIPsDqLHkuDxA1mXxkLBo1krwaK8AOYxGHNEqKZQZgJkkJJb-OQ6K3f6pXK{% endif %}" alt="..." class="rounded " height="160" width="auto">
+                <img src="{% if user.profile.image.url and user.profile.image %}{{ user.profile.image.url }}{% else %}https://boostchiropractic.co.nz/wp-content/uploads/2016/09/default-user-img.jpg{% endif %}" alt="..." class="rounded " height="160" width="auto">
             </div>
             <form enctype="multipart/form-data">
               <div class="form-group ">

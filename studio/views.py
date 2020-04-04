@@ -23,7 +23,21 @@ class Studio(TemplateView):
         if not self.request.user.is_authenticated:
             raise PermissionDenied
         context = super().get_context_data(**kwargs)
-        context['list_messages'] = UserMessages.objects.filter(user=self.request.user, status_read=False) 
+        context['list_messages'] = UserMessages.objects.filter(user=self.request.user).order_by('status_read')
+        return context
+
+
+class MessagesView(TemplateView):
+    template_name = "studio/messages_detail.html"
+
+    def get_context_data(self, **kwargs):
+        if not self.request.user.is_authenticated:
+            raise PermissionDenied
+        context = super().get_context_data(**kwargs)
+        message = UserMessages.objects.get(pk=self.kwargs['pk'])
+        message.status_read = True
+        message.save()
+        context['message'] = message
         return context
 
 

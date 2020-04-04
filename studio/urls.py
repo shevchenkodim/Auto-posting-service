@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import Studio, Tasks, Taskscreate, Taskupdate, Statistics, Settings, SocialNetworkPage, SocialNetworkLiveJournalPage, Help
+from .views import Studio, Tasks, Taskscreate, Taskupdate, Statistics, Settings, SocialNetworkPage, SocialNetworkLiveJournalPage, Help, MessagesView
 from . import views
 
 app_name = 'studio'
 urlpatterns = [
-    path('',                         Studio.as_view(),      name="studio"),
+    path('',                         Studio.as_view(),       name="studio"),
+    path('messages/<pk>',            MessagesView.as_view(), name="messages_detail"),
     path('profile/save',             views.saveprofile,     name='saveprofile'),
     path('tasks/',                   Tasks.as_view(),       name="tasks"),
     path('tasks/create',             Taskscreate.as_view(), name="taskcreate"),

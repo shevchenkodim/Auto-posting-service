@@ -81,8 +81,8 @@ class Profile(models.Model):
 class UserMessages(models.Model):
     """Messages for user"""
     user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
-    title =  models.CharField("Name", max_length=100)
-    short_text = models.TextField("Text", max_length=256)
+    title =  models.CharField("Name", max_length=60)
+    short_text = models.TextField("Text", max_length=180)
     text = models.TextField("Text")
     photo = models.ImageField("Image", upload_to=settings.MEDIA_ROOT)
     date = models.DateTimeField("Date create", auto_now_add=True)

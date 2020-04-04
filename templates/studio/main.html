@@ -11,7 +11,13 @@
                 <div class="col-6">
                     <div class="row">
                         <div class="col-12">
-                            <b>{{ message.title }} <span class="badge badge-info">New</span></b>
+                            <b><a href="{% url 'studio:messages_detail' message.id  %}">{{ message.title }} </a>
+                                {% if message.status_read == False %}
+                                    <span class="badge badge-info">New</span>
+                                {% else %}
+                                    <span class="badge badge-secondary">Read</span>
+                                {% endif %}
+                            </b>
                         </div>
                         <div class="col-12">
                             <i>{{ message.short_text }}</i>
