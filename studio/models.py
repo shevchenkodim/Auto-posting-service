@@ -8,13 +8,15 @@ User = get_user_model()
 
 
 class SocialNetwork(models.Model):
-    name = models.CharField("Назва", max_length=100)
-    type = models.CharField("Тип", max_length=100)
+    """Social Network"""
+    name = models.CharField("Name", max_length=100)
+    type = models.CharField("Type", max_length=100)
 
     def __str__(self):
         return self.name
 
 class SocialNetworkLiveJournal(models.Model):
+    """Social Network for LiveJournal"""
     user = models.ForeignKey(User, on_delete=models.CASCADE, default='2')
     name = models.ForeignKey(SocialNetwork, null=False, blank=False, on_delete=models.CASCADE)
     login = models.CharField(null=False, blank=False, max_length=100)
@@ -26,6 +28,7 @@ class SocialNetworkLiveJournal(models.Model):
 
 
 class SocialNetworkTelegram(models.Model):
+    """Social Network for Telegram"""
     user = models.ForeignKey(User, on_delete=models.CASCADE, default='2')
     name = models.ForeignKey(SocialNetwork, null=False, blank=False, on_delete=models.CASCADE)
     name_channel = models.CharField(null=False, blank=False, max_length=256)
@@ -36,14 +39,15 @@ class SocialNetworkTelegram(models.Model):
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, verbose_name="Користувач", on_delete=models.CASCADE)
+    """Tasks (post in social network)"""
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
     sn_lj = models.ForeignKey(SocialNetworkLiveJournal, null=True, blank=True, on_delete=models.CASCADE)
     sn_telegram = models.ForeignKey(SocialNetworkTelegram, null=True, blank=True, on_delete=models.CASCADE)
-    title = models.CharField("Заголовок", max_length=100)
-    text = models.TextField("Текст поста")
-    images = models.ImageField("Картинка", upload_to=settings.MEDIA_ROOT, blank=True, null=True)
-    date_posting = models.DateTimeField("Дата час коли викласти", blank=True, null=True)
-    date_post_create = models.DateTimeField("Дата создания", auto_now_add=True, blank=True, null=True)
+    title = models.CharField("Title", max_length=100)
+    text = models.TextField("Text")
+    images = models.ImageField("Image", upload_to=settings.MEDIA_ROOT, blank=True, null=True)
+    date_posting = models.DateTimeField("Date when posting", blank=True, null=True)
+    date_post_create = models.DateTimeField("Date create", auto_now_add=True, blank=True, null=True)
     live_journal_result = models.BooleanField(null=False, default=False)
     telegram_result = models.BooleanField(null=False, default=False)
     telegram_task_id = models.UUIDField(default=uuid.uuid4)
@@ -54,15 +58,17 @@ class Post(models.Model):
 
 
 class Statistic(models.Model):
-    user = models.ForeignKey(User, verbose_name="Користувач", on_delete=models.CASCADE)
-    date = models.DateField('Дата', default=timezone.now)
-    post_create = models.IntegerField('Создано', default=0)
+    """Statistic for user"""
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
+    date = models.DateField('Date', default=timezone.now)
+    post_create = models.IntegerField('Created', default=0)
 
     def __str__(self):
         return str(self.date)
 
 
 class Profile(models.Model):
+    """Profile user"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True)
     is_verified = models.BooleanField('verified', default=False)
@@ -73,13 +79,14 @@ class Profile(models.Model):
 
 
 class UserMessages(models.Model):
-    user = models.ForeignKey(User, verbose_name="Користувач", on_delete=models.CASCADE)
-    title =  models.CharField("Название", max_length=100)
-    short_text = models.TextField("Краткий текст", max_length=256)
-    text = models.TextField("Текст")
-    photo = models.ImageField("Изображение", upload_to=settings.MEDIA_ROOT)
-    date = models.DateTimeField("Дата создания", auto_now_add=True)
-    status_read = models.BooleanField('status_read', default=False)
+    """Messages for user"""
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
+    title =  models.CharField("Name", max_length=100)
+    short_text = models.TextField("Text", max_length=256)
+    text = models.TextField("Text")
+    photo = models.ImageField("Image", upload_to=settings.MEDIA_ROOT)
+    date = models.DateTimeField("Date create", auto_now_add=True)
+    status_read = models.BooleanField("status read", default=False)
 
     def __str__(self):
         return f'{self.user} - {self.title}'
