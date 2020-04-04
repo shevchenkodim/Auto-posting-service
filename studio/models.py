@@ -70,3 +70,16 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class UserMessages(models.Model):
+    user = models.ForeignKey(User, verbose_name="Користувач", on_delete=models.CASCADE)
+    title =  models.CharField("Название", max_length=100)
+    short_text = models.TextField("Краткий текст", max_length=256)
+    text = models.TextField("Текст")
+    photo = models.ImageField("Изображение", upload_to=settings.MEDIA_ROOT)
+    date = models.DateTimeField("Дата создания", auto_now_add=True)
+    status_read = models.BooleanField('status_read', default=False)
+
+    def __str__(self):
+        return f'{self.user} - {self.title}'

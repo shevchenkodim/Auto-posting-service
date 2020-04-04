@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import reverse
-from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkLiveJournal, Profile, Statistic
+from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkLiveJournal, Profile, Statistic, UserMessages
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
@@ -19,10 +19,12 @@ import pytz
 class Studio(TemplateView):
     template_name = "studio/main.html"
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         if not self.request.user.is_authenticated:
             raise PermissionDenied
-        return render(request, self.template_name)
+        context = super().get_context_data(**kwargs)
+        context['list_messages'] = UserMessages.objects.filter(user=self.request.user, status_read=False) 
+        return context
 
 
 def saveprofile(request):
