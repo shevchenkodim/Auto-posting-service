@@ -10,7 +10,7 @@
             <img style="max-width:100%;" src="{{ message.photo.url }}"  alt="">
         </div>
         <div class="col-12">
-            <p>{{ message.text }}</p>
+            <p>{{ message.text|safe }}</p>
         </div>
     </div>
 {% endblock content %}
