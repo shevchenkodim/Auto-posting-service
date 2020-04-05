@@ -29,6 +29,19 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="pagination">
+         <span class="step-links">
+          {% if list_messages.has_previous %}
+              <a href="{% url 'studio:studio' %}?page={{ list_messages.previous_page_number }}">Previous</a>
+          {% endif %}
+            <span class="current">
+                Page {{ list_messages.number }} of {{ list_messages.paginator.num_pages }}.
+            </span>
+          {% if list_messages.has_next %}
+                <a href="{% url 'studio:studio' %}?page={{ list_messages.next_page_number }}">Next</a>
+          {% endif %}
+          </span>
+        </div>
     </div>
 {% endblock content %}
 

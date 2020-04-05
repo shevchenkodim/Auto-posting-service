@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import reverse
 from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkLiveJournal, Profile, Statistic, UserMessages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
@@ -23,7 +24,16 @@ class Studio(TemplateView):
         if not self.request.user.is_authenticated:
             raise PermissionDenied
         context = super().get_context_data(**kwargs)
-        context['list_messages'] = UserMessages.objects.filter(user=self.request.user).order_by('status_read')
+        object_list = UserMessages.objects.filter(user=self.request.user).order_by('status_read')
+        paginator = Paginator(object_list, 3)
+        page = self.request.GET.get('page')
+        try:
+            messages = paginator.page(page)
+        except PageNotAnInteger:
+            messages = paginator.page(1)
+        except EmptyPage:
+            messages = paginator.page(paginator.num_pages)
+        context['list_messages'] = messages
         return context
 
 
