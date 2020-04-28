@@ -4,7 +4,89 @@
 {% block content %}
     <h1>Допомога</h1>
     <hr>
+    <div class="accordion mb-3" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              1. Як створити перше завдання та викласти пост?
+            </button>
+          </h2>
+        </div>
 
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            Для того щоб стоворити завдання Вам потрібно:
+            <ol>
+                <li>Перейти в меню на вкладку "Завдання"</li>
+                <li>Потім вгорі натиснути на кнопку "Створити" і Ви перейдете на сторінку створення посту для соц. мер.</li>
+                <li>Після того як ви ввели всі необхідні дані для посту ви вказуєте час коли потрібно його викласти і створюєте.</li>
+            </ol>
+            Зауваження! Якщо у Вас не додані соц. мер. то ви зможете створити пост але коли прийде час постингу то нічого не відбудеться!
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+             2. Як додати соціальну мережу до сервісу?
+            </button>
+          </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+          <div class="card-body">
+              Для того щоб додати соціальну мережу до сурвісу:
+              <br>
+              Telegram
+              <ol>
+                  <li>Перейти в меню на вкладку "Соціальні мережі"</li>
+                  <li>Зайти на вкладку Telegram</li>
+                  <li>Ввести назву вашого каналу та додати його</li>
+              </ol>
+              LiveJournal
+              <ol>
+                  <li>Перейти в меню на вкладку "Соціальні мережі"</li>
+                  <li>Зайти на вкладку LiveJournal</li>
+                  <li>Ввести login and password та додати соц. мер.</li>
+              </ol>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              3. Як змінити інформацію в профілі користувача?
+            </button>
+          </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+          <div class="card-body">
+              Для того щоб змінити інформацію в профілі:
+              <ol>
+                  <li>Перейти в меню на вкладку "Налаштування"</li>
+                  <li>Змінюєте інформацію яку вважаєте за потрібну</li>
+                  <li>Зберігаєте зміни</li>
+              </ol>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingFour">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              4. Як працює статистика на сайті?
+            </button>
+          </h2>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+          <div class="card-body">
+            Статистика відображає скільки постів ви виклали за весь час.
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock content %}
 
 {% block page_js %}
