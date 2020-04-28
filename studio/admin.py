@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import UserMessages
+from .models import UserMessages, Statistic
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 
+admin.site.register(Statistic)
 
 class UserMessagesAdminForm(forms.ModelForm):
     text = forms.CharField(widget=CKEditorUploadingWidget())
