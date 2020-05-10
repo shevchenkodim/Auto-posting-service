@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from .models import Post, SocialNetwork, SocialNetworkTelegram, SocialNetworkLiveJournal, Profile, Statistic, UserMessages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.core.exceptions import PermissionDenied
