@@ -1,6 +1,6 @@
 from Auto_posting_service.celery import app
 from .models import Post, SocialNetworkLiveJournal, SocialNetworkTelegram
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives, send_mail
 import xmlrpc.client as xmlrpclib
 import telebot
 import time
@@ -12,14 +12,12 @@ bot = telebot.TeleBot(BOT_TOKEN)
 @app.task(bind=True)
 def send_verify_email_task(self, email, uuid):
     try:
-        send_mail(
-            'Verify your Auto posting account',
-            'Follow this link to verify your account: '
-            'http://localhost:8000/studio/verify/'+ str(uuid),
-            'djangos99@gmail.com',
-            [email],
-            fail_silently=False,
-        )
+        subject, from_email, to = 'Verify your Auto posting account', 'djangos99@gmail.com', email
+        text_content = 'Verify your Auto posting account'
+        html_content = '<p><strong>Follow this link to verify your account:</strong> <a href="http://188.166.44.240:8000/studio/verify/'+ str(uuid) +'">click link</a></p>'
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
     except Exception as exc:
         raise self.retry(exc=exc, countdown=60, max_retries=3)
     return True
@@ -69,6 +67,7 @@ def telegram_task(self, text, channel_name, image_path, telegram_id, post_id):
                     administrator = False
 
         if administrator == True:
+            print(image_path)
             if image_path != '':
                 PHOTO = open(image_path, 'rb')
                 bot.send_photo(channel_name, PHOTO, text)
